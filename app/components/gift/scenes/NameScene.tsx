@@ -64,7 +64,7 @@ export function NameScene({ onNext }: { onNext: () => void }) {
               transition={{ duration: 0.9, delay: 0.7 + i * 0.14, ease: [0.22, 1, 0.36, 1] }}
               className="font-light"
               style={{
-                fontSize: "clamp(4rem, 12vw, 8rem)",
+                fontSize: "clamp(1.5rem, 20vw, 8rem)",
                 letterSpacing: "0.06em",
                 color: R,
                 display: "inline-block",

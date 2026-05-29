@@ -1,0 +1,45 @@
+# Session: 2026-05-29
+**Date:** 2026-05-29
+**Started:** 13:45
+**Last Updated:** 14:06
+**Project:** regalo-experience
+**Branch:** kami
+**Worktree:** /Users/dvran-air/Documents/development/regalo-experience
+
+---
+<!-- ECC:SUMMARY:START -->
+## Session Summary
+
+### Tasks
+- cuando dice "toca aqui para escribir" en el pin de disney, nomas lo detecta en el texto
+- necesito q optimices los textos mas grandes, la pantalla sera de iphone
+- las sigo viendo pequeñas
+- pues desde la primera escena, no veo ningun cambio en el tamaño de la letra
+- esta corriendo en el puerto 3000, ya reinicie el servidor
+- mira <p style="font-family: var(--font-playfair-display); font-style: italic; font-size: clamp(1.1rem, 3.5vw, 1.4rem); color: rgba(248, 236, 242, 0.35); line-height: 1.5; opacity: 1; transform: none;"
+- mas grande todavia
+- y quiero que en los dialogos solo aparezcan hasta un maximo a la vez
+- por ejemplo aqui  const DIALOG_LINES = [   { text: "oye…", delay: 600 },   { text: "hay algo aquí para ti.", delay: 1800 },   { text: "pero espera un momento.", delay: 3400, suspense: true },   { text
+- no funciona
+
+### Files Modified
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/DialogLines.tsx
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/scenes/PasswordScene.tsx
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/scenes/NameScene.tsx
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/scenes/BirthdayScene.tsx
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/scenes/FinaleScene.tsx
+
+### Tools Used
+Bash, Read, Write, Edit
+
+### Stats
+- Total user messages: 21
+<!-- ECC:SUMMARY:END -->
+
+### Notes for Next Session
+-
+
+### Context to Load
+```
+[relevant files]
+```

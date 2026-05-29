@@ -1,29 +1,19 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN } from "../config";
+import { DialogLines } from "../DialogLines";
 
 const DIALOG_LINES = [
   { text: "oye…", delay: 600 },
   { text: "hay algo aquí para ti.", delay: 1800 },
-  { text: "pero espera un momento.", delay: 3400 },
-  { text: "antes necesito saber que eres tú.", delay: 5000 },
+  { text: "pero espera un momento.", delay: 3400, suspense: true },
+  { text: "antes necesito saber que realmente eres tú.", delay: 5000, resetBefore: true },
+  { text: "porque imaginate que lo abre otra persona.", delay: 6600 },
+  { text: "pues nooo", delay: 8200 },
 ];
-const SWITCH_DELAY = 6600;
-
 function DialogScreen({ onDone }: { onDone: () => void }) {
-  const [visibleLines, setVisibleLines] = useState(0);
-
-  useEffect(() => {
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    DIALOG_LINES.forEach((l, i) => {
-      timers.push(setTimeout(() => setVisibleLines(i + 1), l.delay));
-    });
-    timers.push(setTimeout(onDone, SWITCH_DELAY));
-    return () => timers.forEach(clearTimeout);
-  }, [onDone]);
-
   return (
     <motion.div
       key="dialog"
@@ -33,25 +23,7 @@ function DialogScreen({ onDone }: { onDone: () => void }) {
       transition={{ duration: 1.2 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
     >
-      <div className="w-full max-w-xs space-y-4">
-        {DIALOG_LINES.slice(0, visibleLines).map((l, i) => (
-          <motion.p
-            key={i}
-            initial={{ opacity: 0, x: -12 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            style={{
-              fontFamily: "var(--font-playfair-display)",
-              fontStyle: "italic",
-              fontSize: "clamp(1.1rem, 3.5vw, 1.4rem)",
-              color: i < visibleLines - 1 ? cream(0.35) : cream(0.85),
-              lineHeight: 1.5,
-            }}
-          >
-            {l.text}
-          </motion.p>
-        ))}
-      </div>
+      <DialogLines lines={DIALOG_LINES} onDone={onDone} />
     </motion.div>
   );
 }
@@ -151,7 +123,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
             marginBottom: "2.5rem",
           }}
         >
-          y una última cosa…
+          La pregunta del millon es...
         </motion.p>
 
         <motion.p
@@ -253,6 +225,28 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
           </AnimatePresence>
         </motion.div>
       </div>
+    </motion.div>
+  );
+}
+
+const PIN_SUCCESS_LINES = [
+  { text: "muy bieeen…", delay: 400 },
+  { text: "difícil de adivinar eeh por cierto.", delay: 3200 },
+  { text: "a ver, pero esa estuvo fácil.", delay: 5200 },
+  { text: "aquí va una más.", delay: 7000 },
+];
+
+function PinSuccessScreen({ onDone }: { onDone: () => void }) {
+  return (
+    <motion.div
+      key="pinsuccess"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1.2 }}
+      className="fixed inset-0 flex flex-col items-center justify-center px-10"
+    >
+      <DialogLines lines={PIN_SUCCESS_LINES} onDone={onDone} />
     </motion.div>
   );
 }
@@ -373,14 +367,16 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
           />
 
           <div
-            className="mt-4 text-center text-xs"
-            style={{ color: rose(0.2), fontFamily: "var(--font-geist-sans)", cursor: "pointer" }}
+            className="mt-2 flex items-center justify-center"
+            style={{ cursor: "pointer", padding: "1rem 2rem" }}
             onClick={() => {
               const inp = document.querySelector<HTMLInputElement>("input[type=tel]");
               inp?.focus();
             }}
           >
-            toca aquí para escribir
+            <span className="text-xs text-center" style={{ color: rose(0.2), fontFamily: "var(--font-geist-sans)" }}>
+              toca aquí para escribir
+            </span>
           </div>
 
           <AnimatePresence>
@@ -408,12 +404,13 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
 }
 
 export function PasswordScene({ onUnlock }: { onUnlock: () => void }) {
-  const [phase, setPhase] = useState<"dialog" | "pin" | "input">("dialog");
+  const [phase, setPhase] = useState<"dialog" | "pin" | "pinsuccess" | "input">("dialog");
 
   return (
     <AnimatePresence mode="wait">
       {phase === "dialog" && <DialogScreen key="dialog" onDone={() => setPhase("pin")} />}
-      {phase === "pin" && <PinScreen key="pin" onUnlock={() => setPhase("input")} />}
+      {phase === "pin" && <PinScreen key="pin" onUnlock={() => setPhase("pinsuccess")} />}
+      {phase === "pinsuccess" && <PinSuccessScreen key="pinsuccess" onDone={() => setPhase("input")} />}
       {phase === "input" && <InputScreen key="input" onUnlock={onUnlock} />}
     </AnimatePresence>
   );

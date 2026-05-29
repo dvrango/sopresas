@@ -1,0 +1,32 @@
+# Session: 2026-05-29
+**Date:** 2026-05-29
+**Started:** 13:51
+**Last Updated:** 13:51
+**Project:** regalo-experience
+**Branch:** kami
+**Worktree:** /Users/dvran-air/Documents/development/regalo-experience
+
+---
+<!-- ECC:SUMMARY:START -->
+## Session Summary
+
+### Tasks
+- cuando dice el dialogo, "espera un momento" ahi es donde se debe hacer el suspense antes no
+
+### Files Modified
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/scenes/PasswordScene.tsx
+
+### Tools Used
+Read, Edit
+
+### Stats
+- Total user messages: 1
+<!-- ECC:SUMMARY:END -->
+
+### Notes for Next Session
+-
+
+### Context to Load
+```
+[relevant files]
+```

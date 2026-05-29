@@ -90,7 +90,7 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(2.2rem, 8vw, 5rem)",
+            fontSize: "clamp(1.5rem, 10vw, 5rem)",
             color: cream(0.88),
             lineHeight: 1.15,
           }}
@@ -106,7 +106,7 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(2.2rem, 8vw, 5rem)",
+            fontSize: "clamp(1.5rem, 10vw, 5rem)",
             color: R,
             lineHeight: 1.15,
           }}

@@ -60,6 +60,7 @@ export const DISNEY_PIN = "0000";
 
 export type Scene =
   | "password"
+  | "dateSuccess"
   | "intro"
   | "name"
   | "birthday"

@@ -12,6 +12,7 @@ import { PhotosScene } from "./gift/scenes/PhotosScene";
 import { MomentsScene } from "./gift/scenes/MomentsScene";
 import { LetterScene } from "./gift/scenes/LetterScene";
 import { FinaleScene } from "./gift/scenes/FinaleScene";
+import { DateSuccessScene } from "./gift/scenes/DateSuccessScene";
 
 export default function GiftExperience() {
   const [scene, setScene] = useState<Scene>("password");
@@ -24,7 +25,10 @@ export default function GiftExperience() {
 
       <AnimatePresence mode="wait">
         {scene === "password" && (
-          <PasswordScene key="password" onUnlock={() => goTo("intro")} />
+          <PasswordScene key="password" onUnlock={() => goTo("dateSuccess")} />
+        )}
+        {scene === "dateSuccess" && (
+          <DateSuccessScene key="dateSuccess" onNext={() => goTo("intro")} />
         )}
         {scene === "intro" && (
           <IntroScene key="intro" onNext={() => goTo("name")} />

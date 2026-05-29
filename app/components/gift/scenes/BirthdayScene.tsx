@@ -60,7 +60,7 @@ export function BirthdayScene({ onNext }: { onNext: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(3.5rem, 14vw, 7rem)",
+            fontSize: "clamp(1.5rem, 16vw, 7rem)",
             color: R,
             lineHeight: 1.1,
             textShadow: `0 0 60px ${rose(0.4)}, 0 0 120px ${lavender(0.2)}`,
