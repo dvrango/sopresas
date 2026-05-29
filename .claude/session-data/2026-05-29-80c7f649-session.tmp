@@ -1,0 +1,40 @@
+# Session: 2026-05-29
+**Date:** 2026-05-29
+**Started:** 12:36
+**Last Updated:** 12:55
+**Project:** regalo-experience
+**Branch:** kami
+**Worktree:** /Users/dvran-air/Documents/development/regalo-experience
+
+---
+<!-- ECC:SUMMARY:START -->
+## Session Summary
+
+### Tasks
+- @".claude/session-data/2026-05-29-ca728aa4-session.tmp" no se ve bien el video se rompio. No hay otra forma de hacerlo?
+- [Request interrupted by user for tool use]
+- esque se ve como imagenes que pasan demasiado rapido y con un zoom tan grande q no se entiende nada
+- pero no se puede ver asi como en iphone en live? esas las tome en iphone
+- pues al dar click en siguiente
+- no pues asi en automatico
+- ah nomas q los videos no se hicieron bien, osea los videos se hicieron a partir de el heic de las fotos, pero parece q no se hicieron bien
+- ah nomas q los videos no se hicieron bien, osea los videos se hicieron a partir de el heic de las fotos, pero parece q no se hicieron bien. No puedes usar fmpeg o algo asi?
+- mejor quita los videos
+
+### Files Modified
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/GiftExperience.tsx
+
+### Tools Used
+Read, Bash, AskUserQuestion, Edit
+
+### Stats
+- Total user messages: 9
+<!-- ECC:SUMMARY:END -->
+
+### Notes for Next Session
+-
+
+### Context to Load
+```
+[relevant files]
+```

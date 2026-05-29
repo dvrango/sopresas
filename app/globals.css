@@ -1,11 +1,12 @@
 @import "tailwindcss";
 
 :root {
-  --background: #080808;
-  --foreground: #f2e8d9;
-  --gold: #c8a96e;
-  --gold-dim: rgba(200, 169, 110, 0.4);
-  --cream: #f2e8d9;
+  --background: #0a0608;
+  --foreground: #f8eef2;
+  --rose: #e896b0;
+  --rose-dim: rgba(232, 150, 176, 0.4);
+  --lavender: #c8a0d4;
+  --cream: #f8eef2;
   --font-playfair: var(--font-playfair-display);
 }
 
@@ -24,8 +25,8 @@
 html,
 body {
   height: 100%;
-  background: #080808;
-  color: #f2e8d9;
+  background: #0a0608;
+  color: #f8eef2;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
