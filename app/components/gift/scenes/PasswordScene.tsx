@@ -2,17 +2,8 @@
 
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN } from "../config";
+import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN, CONFIG } from "../config";
 import { DialogLines } from "../DialogLines";
-
-const DIALOG_LINES = [
-  { text: "oye…", delay: 600 },
-  { text: "hay algo aquí para ti.", delay: 1800 },
-  { text: "pero espera un momento.", delay: 3400, suspense: true },
-  { text: "antes necesito saber que realmente eres tú.", delay: 5000, resetBefore: true },
-  { text: "porque imaginate que lo abre otra persona.", delay: 6600 },
-  { text: "pues nooo", delay: 8200 },
-];
 function DialogScreen({ onDone }: { onDone: () => void }) {
   return (
     <motion.div
@@ -23,7 +14,7 @@ function DialogScreen({ onDone }: { onDone: () => void }) {
       transition={{ duration: 1.2 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
     >
-      <DialogLines lines={DIALOG_LINES} onDone={onDone} />
+      <DialogLines lines={CONFIG.script.introDialog} onDone={onDone} />
     </motion.div>
   );
 }
@@ -123,7 +114,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
             marginBottom: "2.5rem",
           }}
         >
-          La pregunta del millon es...
+          {CONFIG.script.dateInput.question}
         </motion.p>
 
         <motion.p
@@ -139,7 +130,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
             marginBottom: "2.5rem",
           }}
         >
-          ¿cuándo fue nuestro primer día?
+          {CONFIG.script.dateInput.subtitle}
         </motion.p>
 
         <motion.div
@@ -219,7 +210,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                   color: "rgba(232,128,150,0.65)",
                 }}
               >
-                ¿¿cómo que no sabes?? ♡
+                {CONFIG.script.dateInput.wrongAnswer}
               </motion.p>
             )}
           </AnimatePresence>
@@ -228,13 +219,6 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
     </motion.div>
   );
 }
-
-const PIN_SUCCESS_LINES = [
-  { text: "muy bieeen…", delay: 400 },
-  { text: "difícil de adivinar eeh por cierto.", delay: 3200 },
-  { text: "a ver, pero esa estuvo fácil.", delay: 5200 },
-  { text: "aquí va una más.", delay: 7000 },
-];
 
 function PinSuccessScreen({ onDone }: { onDone: () => void }) {
   return (
@@ -246,7 +230,7 @@ function PinSuccessScreen({ onDone }: { onDone: () => void }) {
       transition={{ duration: 1.2 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
     >
-      <DialogLines lines={PIN_SUCCESS_LINES} onDone={onDone} />
+      <DialogLines lines={CONFIG.script.pinSuccessDialog} onDone={onDone} />
     </motion.div>
   );
 }
@@ -308,7 +292,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
             marginBottom: "0.75rem",
           }}
         >
-          primero, una pregunta…
+          {CONFIG.script.pinInput.question}
         </motion.p>
 
         <motion.p
@@ -324,7 +308,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
             marginBottom: "2.5rem",
           }}
         >
-          ¿cuál es tu pin de Disney+?
+          {CONFIG.script.pinInput.subtitle}
         </motion.p>
 
         <motion.div
@@ -393,7 +377,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
                   color: "rgba(232,128,150,0.65)",
                 }}
               >
-                ¿¿cómo que no sabes?? ♡
+                {CONFIG.script.pinInput.wrongAnswer}
               </motion.p>
             )}
           </AnimatePresence>

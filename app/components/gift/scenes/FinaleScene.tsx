@@ -19,6 +19,7 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
   const [stars, setStars] = useState<Star[]>([]);
 
   useEffect(() => {
+    localStorage.setItem("regalo_completed", "1");
     setStars(
       Array.from({ length: 90 }, (_, i) => ({
         id: i,
@@ -122,7 +123,7 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
           className="text-xs tracking-[0.45em] uppercase transition-all duration-700 hover:tracking-[0.6em]"
           style={{ color: rose(0.25) }}
         >
-          volver al inicio
+          lo quieres ver de nuevo?
         </motion.button>
       </div>
     </motion.div>

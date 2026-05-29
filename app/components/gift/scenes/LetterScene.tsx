@@ -31,9 +31,9 @@ export function LetterScene({ onNext }: { onNext: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
-      className="fixed inset-0 flex items-start justify-center overflow-y-auto"
+      className="fixed inset-0 flex items-center justify-center overflow-y-auto"
     >
-      <div className="max-w-sm w-full px-8 py-20">
+      <div className="max-w-sm w-full" style={{ paddingLeft: "max(2rem, env(safe-area-inset-left) + 1.5rem)", paddingRight: "max(2rem, env(safe-area-inset-right) + 1.5rem)", paddingTop: "max(2rem, env(safe-area-inset-top) + 1rem)", paddingBottom: "max(2rem, env(safe-area-inset-bottom) + 1rem)" }}>
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -53,7 +53,7 @@ export function LetterScene({ onNext }: { onNext: () => void }) {
               transition={{ duration: 0.75, ease: "easeOut" }}
               style={{
                 fontStyle: "italic",
-                fontSize: "1.05rem",
+                fontSize: "1.25rem",
                 lineHeight: 1.85,
                 color: line === "" ? "transparent" : cream(0.82),
                 userSelect: "none",
@@ -91,7 +91,7 @@ export function LetterScene({ onNext }: { onNext: () => void }) {
               animate={{ opacity: 1 }}
               transition={{ duration: 1.2 }}
               onClick={onNext}
-              className="mt-16 text-xs tracking-[0.45em] uppercase transition-all duration-700 hover:tracking-[0.6em]"
+              className="mt-24 text-xs tracking-[0.45em] uppercase transition-all duration-700 hover:tracking-[0.6em]"
               style={{ color: rose(0.35) }}
             >
               continuar →

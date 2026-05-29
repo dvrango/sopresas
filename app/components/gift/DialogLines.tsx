@@ -2,16 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { cream } from "./config";
+import { cream, type DialogLine } from "./config";
 
-export interface DialogLine {
-  text: string;
-  delay: number;
-  /** Show typing dots after this line until the next one appears */
-  suspense?: boolean;
-  /** Clear all previous lines when this one appears */
-  resetBefore?: boolean;
-}
+export type { DialogLine };
 
 interface DialogLinesProps {
   lines: DialogLine[];

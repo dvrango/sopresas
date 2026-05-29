@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { R, rose, lavender, cream } from "../config";
+import { R, rose, lavender, cream, CONFIG } from "../config";
 
-export function DateSuccessScene({ onNext }: { onNext: () => void }) {
+export function DateSuccessScene({ onNext, onStart }: { onNext: () => void; onStart?: () => void }) {
   const [showCta, setShowCta] = useState(false);
 
   useEffect(() => {
@@ -50,7 +50,7 @@ export function DateSuccessScene({ onNext }: { onNext: () => void }) {
             marginBottom: "1.5rem",
           }}
         >
-          ¡Genial!
+          {CONFIG.script.dateSuccess.headline}
         </motion.h1>
 
         <motion.p
@@ -66,7 +66,7 @@ export function DateSuccessScene({ onNext }: { onNext: () => void }) {
             marginBottom: "3rem",
           }}
         >
-          sabía que lo recordabas ♡
+          {CONFIG.script.dateSuccess.subtitle}
         </motion.p>
 
         <AnimatePresence>
@@ -75,7 +75,7 @@ export function DateSuccessScene({ onNext }: { onNext: () => void }) {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, ease: "easeOut" }}
-              onClick={onNext}
+              onClick={() => { onStart?.(); onNext(); }}
               className="relative group"
               style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
@@ -93,10 +93,10 @@ export function DateSuccessScene({ onNext }: { onNext: () => void }) {
                 }}
               >
                 <div style={{ fontFamily: "var(--font-playfair-display)", fontStyle: "italic", fontSize: "clamp(1rem, 4vw, 1.15rem)", letterSpacing: "0.05em", textTransform: "none" as const, color: cream(0.9), marginBottom: "0.25rem" }}>
-                  ¿Estás lista?
+                  {CONFIG.script.dateSuccess.ctaReady}
                 </div>
                 <div>
-                  toca aquí para iniciar
+                  {CONFIG.script.dateSuccess.ctaStart}
                 </div>
               </div>
             </motion.button>

@@ -1,52 +1,109 @@
+export interface DialogLine {
+  text: string;
+  delay: number;
+  suspense?: boolean;
+  resetBefore?: boolean;
+}
+
 export const PHOTOS = [
-  "/photos/IMG_8990.jpg",
-  "/photos/IMG_9441.jpg",
-  "/photos/IMG_9467.jpg",
-  "/photos/IMG_9453.jpg",
-  "/photos/IMG_9233.jpg",
+  "/photos/IMG_9450.webp",
+  "/photos/IMG_9453.webp",
+  "/photos/IMG_9442.webp",
+  "/photos/IMG_8996.webp",
+  "/photos/IMG_9467 2.webp",
+  "/photos/IMG_9468.webp",
 ];
+export const INTRO_PHOTO_COUNT = 2;
 
 // ─── EDIT THIS SECTION ────────────────────────────────────────────────────────
 export const CONFIG = {
-  recipientName: "Sofía",
-  senderName: "Tu amor",
+  recipientName: "Cami",
+  senderName: "Angel",
   date: "29 de mayo, 2026",
   birthdayAge: "21",
   birthdayMessage:
-    "espero que recuerdes este día durante el resto de tu vida, diviértete como una niña, y disfrútalo como una reina",
+    "espero que recuerdes este día durante el resto de tu vida, que te diviertas como una niña, y lo disfrutes como una reina",
   moments: [
     {
       roman: "I",
-      title: "El primer día",
-      text: "Desde que te vi, algo en el mundo cambió de forma permanente.",
+      title: "Los buenos recuerdos",
+      text: "Me llevo todo lo bonito que vivimos juntos",
     },
     {
       roman: "II",
-      title: "Lo que más admiro",
-      text: "Tu fuerza callada. La forma en que iluminas los cuartos sin saber que lo haces.",
+      title: "Lo que admiro de ti",
+      text: "Eres una persona con muchísima luz y determinación. Sigue siendo tan auténtica.",
     },
     {
       roman: "III",
-      title: "Lo que quiero para ti",
-      text: "Que cada mañana sepas que existes en los pensamientos de alguien.",
+      title: "Mis mejores deseos",
+      text: "Que la vida te llene de éxitos, paz y que cumplas todo lo que te propongas en esta nueva etapa.",
     },
   ],
   letter: [
-    "Hay personas que entran a tu vida",
-    "y reorganizan todo sin tocarlo.",
+    "Quería dejarte un último detalle",
+    "para celebrar tu cumpleaños.",
     "",
-    "Tú eres una de esas personas.",
+    "Aunque nuestros caminos cambien,",
+    "te deseo genuinamente lo mejor.",
     "",
-    "Este momento lo creé para ti,",
-    "para que sepas que hay alguien",
-    "que piensa en tu sonrisa",
-    "cuando nadie más está mirando.",
+    "Eres una gran persona",
+    "y mereces que te pasen",
+    "puras cosas increíbles",
+    "en esta nueva vuelta al sol.",
     "",
-    "Con todo lo que tengo,",
+    "Te mando un abrazo y un ultimo beso,",
   ],
-  signature: "Siempre tuyo.",
-  finalLine1: "Para siempre,",
-  finalLine2: "tuya.",
+signature: "Con cariño,",
+  finalLine1: "Que disfrutes muchisimo",
+  finalLine2: "tus 21's.",
+
+  // ─── SCRIPT / DIALOGUES ───────────────────────────────────────────────────
+  script: {
+    introDialog: [
+      { text: "oye…", delay: 600 },
+     { text: "te preparé este detalle por tu cumple.", delay: 1800 },
+      { text: "pero espera un momento.", delay: 3400, suspense: true },
+      { text: "antes necesitamos una pequeña prueba de seguridad.", delay: 5000, resetBefore: true },
+      { text: "no vaya a ser que alguien más lo abra.", delay: 6600 },
+      { text: "pues nooo", delay: 8200 },
+    ] as DialogLine[],
+
+    pinSuccessDialog: [
+      { text: "jajaja muy bieeen…", delay: 400 },
+      { text: "difícil de adivinar eeh por cierto.", delay: 3200 },
+      { text: "a ver, pero esa estuvo fácil.", delay: 5200 },
+      { text: "aquí va una más.", delay: 7000 },
+    ] as DialogLine[],
+
+    dateInput: {
+      question: "La pregunta del millon es...",
+      subtitle: "¿cuándo fue nuestro primer día?",
+      wrongAnswer: "¿¿cómo que no sabes?? ♡",
+    },
+
+ pinInput: {
+      question: "primero, una pregunta…",
+      subtitle: "¿cuál es tu pin de Disney+?",
+      wrongAnswer: "Noo eres tu, no puede ser... ♡",
+    },
+
+   dateSuccess: {
+      headline: "¡Genial!",
+      subtitle: "mira q buena memoria tienes, eh",
+      ctaReady: "¿Estás lista?",
+      ctaStart: "toca aquí para iniciar",
+    },
+
+    birthday: {
+      label: "feliz cumpleaños",
+      heroWord: "princesa",
+    },
+
+    name: {
+      label: "esto es para ti",
+    },
+  },
 };
 // ──────────────────────────────────────────────────────────────────────────────
 
@@ -59,6 +116,7 @@ export const PASSWORD = "17032026";
 export const DISNEY_PIN = "0000";
 
 export type Scene =
+  | "volume"
   | "password"
   | "dateSuccess"
   | "intro"
@@ -67,4 +125,6 @@ export type Scene =
   | "photos"
   | "moments"
   | "letter"
-  | "finale";
+  | "finale"
+  | "return"
+  | "surprise";

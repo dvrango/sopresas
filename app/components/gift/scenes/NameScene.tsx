@@ -51,11 +51,11 @@ export function NameScene({ onNext }: { onNext: () => void }) {
         className="text-xs tracking-[0.55em] uppercase mb-10"
         style={{ fontFamily: "var(--font-geist-sans)", color: rose(0.38) }}
       >
-        esto es para
+        {CONFIG.script.name.label}
       </motion.p>
 
       <div className="relative flex items-center justify-center">
-        <div className="flex" style={{ fontFamily: "var(--font-playfair-display)" }}>
+        <div className="flex items-center" style={{ fontFamily: "var(--font-playfair-display)" }}>
           {letters.map((letter, i) => (
             <motion.span
               key={i}
@@ -73,6 +73,19 @@ export function NameScene({ onNext }: { onNext: () => void }) {
               {letter === " " ? " " : letter}
             </motion.span>
           ))}
+          <motion.span
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.7 + letters.length * 0.14, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              fontSize: "clamp(1rem, 12vw, 5rem)",
+              marginLeft: "0.2em",
+              display: "inline-block",
+              lineHeight: 1,
+            }}
+          >
+            🍒
+          </motion.span>
         </div>
 
         {burst &&

@@ -1,20 +1,27 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { rose, PHOTOS } from "../config";
+import { rose, PHOTOS, INTRO_PHOTO_COUNT } from "../config";
+
+const INTRO_PHOTOS = PHOTOS.slice(0, INTRO_PHOTO_COUNT);
 
 export function PhotosScene({ onNext }: { onNext: () => void }) {
   const [index, setIndex] = useState(0);
 
   const advance = useCallback(() => {
-    if (index < PHOTOS.length - 1) {
+    if (index < INTRO_PHOTOS.length - 1) {
       setIndex((i) => i + 1);
     } else {
       onNext();
     }
   }, [index, onNext]);
+
+  useEffect(() => {
+    const t = setTimeout(advance, 5000);
+    return () => clearTimeout(t);
+  }, [advance]);
 
   return (
     <motion.div
@@ -40,7 +47,7 @@ export function PhotosScene({ onNext }: { onNext: () => void }) {
             animate={{ scale: 1.05 }}
             transition={{ duration: 14, ease: "linear" }}
           >
-            <Image src={PHOTOS[index]} alt="" fill className="object-cover" priority />
+            <Image src={INTRO_PHOTOS[index]} alt="" fill className="object-cover" priority />
           </motion.div>
         </motion.div>
       </AnimatePresence>
@@ -59,7 +66,7 @@ export function PhotosScene({ onNext }: { onNext: () => void }) {
       />
 
       <div className="absolute bottom-14 left-0 right-0 flex justify-center gap-2.5 pointer-events-none">
-        {PHOTOS.map((_, i) => (
+        {INTRO_PHOTOS.map((_, i) => (
           <div
             key={i}
             className="rounded-full transition-all duration-700"
@@ -78,7 +85,7 @@ export function PhotosScene({ onNext }: { onNext: () => void }) {
         className="absolute bottom-6 left-0 right-0 text-center text-xs tracking-[0.35em] uppercase pointer-events-none"
         style={{ color: rose(0.45) }}
       >
-        {index < PHOTOS.length - 1 ? "toca para ver más" : "toca para continuar"}
+        {index < INTRO_PHOTOS.length - 1 ? "toca para ver más" : "toca para continuar"}
       </motion.p>
     </motion.div>
   );

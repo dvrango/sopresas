@@ -6,16 +6,15 @@ import { R, rose, lavender, cream, CONFIG } from "../config";
 
 export function BirthdayScene({ onNext }: { onNext: () => void }) {
   const [showMessage, setShowMessage] = useState(false);
-  const [showHint, setShowHint] = useState(false);
 
   useEffect(() => {
     const t1 = setTimeout(() => setShowMessage(true), 1400);
-    const t2 = setTimeout(() => setShowHint(true), 3200);
+    const t2 = setTimeout(() => onNext(), 5000);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
     };
-  }, []);
+  }, [onNext]);
 
   return (
     <motion.div
@@ -23,8 +22,8 @@ export function BirthdayScene({ onNext }: { onNext: () => void }) {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 1.4 }}
-      className="fixed inset-0 flex flex-col items-center justify-center px-10 cursor-pointer"
-      onClick={onNext}
+      className="fixed inset-0 flex flex-col items-center justify-center"
+      style={{ paddingLeft: "max(2rem, env(safe-area-inset-left) + 1.5rem)", paddingRight: "max(2rem, env(safe-area-inset-right) + 1.5rem)" }}
     >
       <div
         className="absolute rounded-full pointer-events-none"
@@ -49,7 +48,7 @@ export function BirthdayScene({ onNext }: { onNext: () => void }) {
           className="text-sm tracking-[0.55em] uppercase mb-4"
           style={{ fontFamily: "var(--font-geist-sans)", color: rose(0.5) }}
         >
-          feliz cumpleaños
+          {CONFIG.script.birthday.label}
         </motion.p>
 
         <motion.h1
@@ -66,7 +65,7 @@ export function BirthdayScene({ onNext }: { onNext: () => void }) {
             textShadow: `0 0 60px ${rose(0.4)}, 0 0 120px ${lavender(0.2)}`,
           }}
         >
-          princesa
+          {CONFIG.script.birthday.heroWord}
         </motion.h1>
 
         <motion.div
@@ -105,19 +104,6 @@ export function BirthdayScene({ onNext }: { onNext: () => void }) {
         </AnimatePresence>
       </div>
 
-      <AnimatePresence>
-        {showHint && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.5, 0] }}
-            transition={{ duration: 2.5, repeat: Infinity }}
-            className="fixed bottom-16 text-xs tracking-[0.45em] uppercase"
-            style={{ color: rose(0.35) }}
-          >
-            toca para continuar
-          </motion.p>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
 }
