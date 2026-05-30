@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import { type Scene } from "./gift/config";
+import { track } from "../lib/analytics";
 import { AmbientParticles } from "./gift/AmbientParticles";
 import { PasswordScene } from "./gift/scenes/PasswordScene";
 import { IntroScene } from "./gift/scenes/IntroScene";
@@ -25,13 +26,24 @@ export default function GiftExperience() {
     return "password";
   });
   const audioRef = useRef<HTMLAudioElement>(null);
+  useEffect(() => {
+    const isReturn = !!localStorage.getItem("regalo_completed");
+    const visits = parseInt(localStorage.getItem("regalo_visits") ?? "0") + 1;
+    localStorage.setItem("regalo_visits", String(visits));
+    track("gift_opened", { is_return_visitor: isReturn, visit_number: visits });
+  }, []);
 
-  const goTo = useCallback((s: Scene) => setScene(s), []);
+  const goTo = useCallback((next: Scene) => {
+    if (next === "finale") track("gift_completed");
+    if (next === "surprise") track("surprise_visited");
+    setScene(next);
+  }, []);
 
   const startMusic = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.volume = 0.55;
       audioRef.current.play().catch(() => {});
+      track("music_started");
     }
   }, []);
 

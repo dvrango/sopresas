@@ -4,6 +4,7 @@ import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN, CONFIG } from "../config";
 import { DialogLines } from "../DialogLines";
+import { track } from "../../../lib/analytics";
 function DialogScreen({ onDone }: { onDone: () => void }) {
   return (
     <motion.div
@@ -33,8 +34,10 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
     (d: string, m: string, y: string) => {
       const val = d.padStart(2, "0") + m.padStart(2, "0") + y;
       if (val === PASSWORD) {
+        track("gift_unlocked");
         onUnlock();
       } else {
+        track("date_wrong", { tried: `${d.padStart(2,"0")}/${m.padStart(2,"0")}/${y}` });
         setShake(true);
         setWrong(true);
         setDd("");
@@ -151,7 +154,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                 maxLength={2}
                 value={dd}
                 onChange={(e) => handleDd(e.target.value)}
-                placeholder="17"
+                placeholder="DD"
                 autoFocus
                 className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
                 style={fieldStyle(wrong)}
@@ -170,7 +173,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                 maxLength={2}
                 value={mm}
                 onChange={(e) => handleMm(e.target.value)}
-                placeholder="03"
+                placeholder="MM"
                 className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
                 style={fieldStyle(wrong)}
               />
@@ -188,7 +191,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                 maxLength={4}
                 value={yyyy}
                 onChange={(e) => handleYyyy(e.target.value)}
-                placeholder="2026"
+                placeholder="AAAA"
                 className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
                 style={fieldStyle(wrong)}
               />
@@ -256,8 +259,10 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
   const attempt = useCallback(
     (val: string) => {
       if (val === DISNEY_PIN) {
+        track("pin_correct");
         onUnlock();
       } else {
+        track("pin_wrong", { tried: val });
         setShake(true);
         setWrong(true);
         setPin("");
