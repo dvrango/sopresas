@@ -34,10 +34,10 @@ export function MomentsScene({ onNext }: { onNext: () => void }) {
     }
   }, [index, onNext]);
 
-  // auto-advance photos
+  // auto-advance
   useEffect(() => {
-    if (STEPS[index]?.type !== "photo") return;
-    const t = setTimeout(advance, 5000);
+    const delay = STEPS[index]?.type === "photo" ? 5000 : 6000;
+    const t = setTimeout(advance, delay);
     return () => clearTimeout(t);
   }, [index, advance]);
 
@@ -130,7 +130,7 @@ export function MomentsScene({ onNext }: { onNext: () => void }) {
         )}
       </AnimatePresence>
 
-      <div className="fixed flex gap-3 items-center" style={{ bottom: "calc(env(safe-area-inset-bottom) + 3rem)" }}>
+      <div className="fixed flex gap-3 items-center pointer-events-none" style={{ bottom: "calc(env(safe-area-inset-bottom) + 3rem)" }}>
         {CONFIG.moments.map((_, i) => (
           <div
             key={i}
@@ -147,7 +147,7 @@ export function MomentsScene({ onNext }: { onNext: () => void }) {
       <motion.p
         animate={{ opacity: [0.25, 0.55, 0.25] }}
         transition={{ duration: 2.5, repeat: Infinity }}
-        className="fixed text-xs tracking-[0.35em] uppercase"
+        className="fixed text-xs tracking-[0.35em] uppercase pointer-events-none"
         style={{ color: rose(0.3), bottom: "calc(env(safe-area-inset-bottom) + 1.25rem)" }}
       >
         {index < STEPS.length - 1 ? "toca para continuar" : "toca para leer"}

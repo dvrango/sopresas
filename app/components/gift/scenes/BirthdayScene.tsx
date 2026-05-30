@@ -9,7 +9,7 @@ export function BirthdayScene({ onNext }: { onNext: () => void }) {
 
   useEffect(() => {
     const t1 = setTimeout(() => setShowMessage(true), 1400);
-    const t2 = setTimeout(() => onNext(), 5000);
+    const t2 = setTimeout(() => onNext(), 9000);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);

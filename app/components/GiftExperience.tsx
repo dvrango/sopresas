@@ -35,9 +35,17 @@ export default function GiftExperience() {
     }
   }, []);
 
+  const handleSongEnded = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.src = "/audio/song2.mp3";
+      audioRef.current.loop = true;
+      audioRef.current.play().catch(() => {});
+    }
+  }, []);
+
   return (
     <div className="fixed inset-0 select-none" style={{ background: "#0a0608" }}>
-      <audio ref={audioRef} src="/audio/song.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/audio/song.mp3" preload="auto" onEnded={handleSongEnded} />
       <AmbientParticles />
 
       <AnimatePresence mode="wait">

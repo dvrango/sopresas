@@ -1,0 +1,42 @@
+# Session: 2026-05-30
+**Date:** 2026-05-30
+**Started:** 10:01
+**Last Updated:** 10:23
+**Project:** regalo-experience
+**Branch:** kami
+**Worktree:** /Users/dvran-air/Documents/development/regalo-experience
+
+---
+<!-- ECC:SUMMARY:START -->
+## Session Summary
+
+### Tasks
+- [Image: source: /Users/dvran-air/Downloads/59BD0728-D235-4A7A-9D0A-42BE8901D58C.JPG]
+- oye la parte de introDialog pasa muy rapido los dialogos
+- pero como funciona el delay? entre mas bajo mas se tarda o como?
+- osea porque no es que el tiempo q le pongo ahi es el tiempo q va a tardar en desaparecer?
+- y si lo ves practico asi?
+- [Request interrupted by user]
+- me refiero a que funcione de esa forma esta cosa
+- [Request interrupted by user]
+- te estoy preguntando a ti
+- ps abria q refactorizar todo mejor nadmas ajusta esto y ya despues arreglamos
+
+### Files Modified
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/GiftExperience.tsx
+- /Users/dvran-air/Documents/development/regalo-experience/app/components/gift/config.ts
+
+### Tools Used
+Bash, Read, Edit
+
+### Stats
+- Total user messages: 15
+<!-- ECC:SUMMARY:END -->
+
+### Notes for Next Session
+-
+
+### Context to Load
+```
+[relevant files]
+```

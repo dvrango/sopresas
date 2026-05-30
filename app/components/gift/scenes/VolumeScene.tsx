@@ -12,6 +12,7 @@ const LINES = [
   { text: "oye…", delay: 400 },
   { text: "antes de empezar,", delay: 1600 },
   { text: "sube el volumen de tu celular.", delay: 2800 },
+  { text: "y el brillo también.", delay: 4000 },
 ];
 
 export function VolumeScene({ onContinue }: Props) {
@@ -22,7 +23,7 @@ export function VolumeScene({ onContinue }: Props) {
     const timers = LINES.map((line, i) =>
       setTimeout(() => setVisibleCount(i + 1), line.delay)
     );
-    const hintTimer = setTimeout(() => setShowHint(true), 4400);
+    const hintTimer = setTimeout(() => setShowHint(true), 5600);
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(hintTimer);
@@ -65,7 +66,7 @@ export function VolumeScene({ onContinue }: Props) {
                   fontFamily: "var(--font-playfair-display)",
                   fontStyle: "italic",
                   fontSize: "clamp(1.1rem, 3.5vw, 1.35rem)",
-                  color: i === 0 ? cream(0.72) : i === 2 ? cream(0.9) : cream(0.5),
+                  color: i === 0 ? cream(0.72) : i === 2 || i === 3 ? cream(0.9) : cream(0.5),
                   lineHeight: 1.7,
                   marginBottom: "0.1rem",
                 }}

@@ -19,7 +19,7 @@ export const INTRO_PHOTO_COUNT = 2;
 export const CONFIG = {
   recipientName: "Cami",
   senderName: "Angel",
-  date: "29 de mayo, 2026",
+  date: "7 de Junio de 2026",
   birthdayAge: "21",
   birthdayMessage:
     "espero que recuerdes este día durante el resto de tu vida, que te diviertas como una niña, y lo disfrutes como una reina",
@@ -61,31 +61,33 @@ signature: "Con cariño,",
   // ─── SCRIPT / DIALOGUES ───────────────────────────────────────────────────
   script: {
     introDialog: [
-      { text: "oye…", delay: 600 },
-     { text: "te preparé este detalle por tu cumple.", delay: 1800 },
-      { text: "pero espera un momento.", delay: 3400, suspense: true },
-      { text: "antes necesitamos una pequeña prueba de seguridad.", delay: 5000, resetBefore: true },
-      { text: "no vaya a ser que alguien más lo abra.", delay: 6600 },
-      { text: "pues nooo", delay: 8200 },
+      { text: "oye…", delay: 800 },
+      { text: "hoy es un día especial, ¿verdad?", delay: 2800 },
+      { text: "creias que lo había olvidado?", delay: 5200 },
+      { text: "te preparé este detalle por tu cumple.", delay: 7800, suspense: true },
+      { text: "pero espera un momento.", delay: 10400, suspense: true },
+      { text: "antes necesitamos una pequeña prueba de seguridad.", delay: 13400, resetBefore: true },
+      { text: "no vaya a ser que alguien más lo abra.", delay: 16400 },
+      { text: "y no quiero que eso pase…", delay: 19400 },
     ] as DialogLine[],
 
     pinSuccessDialog: [
       { text: "jajaja muy bieeen…", delay: 400 },
       { text: "difícil de adivinar eeh por cierto.", delay: 3200 },
       { text: "a ver, pero esa estuvo fácil.", delay: 5200 },
-      { text: "aquí va una más.", delay: 7000 },
+      { text: "aquí va una prueba más.", delay: 7000 },
     ] as DialogLine[],
 
     dateInput: {
       question: "La pregunta del millon es...",
-      subtitle: "¿cuándo fue nuestro primer día?",
-      wrongAnswer: "¿¿cómo que no sabes?? ♡",
+      subtitle: "¿que dia nos conocimos?",
+      wrongAnswer: "¿¿mmm no te acuerdas?? ♡",
     },
 
  pinInput: {
       question: "primero, una pregunta…",
-      subtitle: "¿cuál es tu pin de Disney+?",
-      wrongAnswer: "Noo eres tu, no puede ser... ♡",
+      subtitle: "pon aqui tu dificilisimo pin de Disney+",
+      wrongAnswer: "ya no te acuerdas de tu pin??",
     },
 
    dateSuccess: {
@@ -97,7 +99,7 @@ signature: "Con cariño,",
 
     birthday: {
       label: "feliz cumpleaños",
-      heroWord: "princesa",
+      heroWord: "Camiii",
     },
 
     name: {

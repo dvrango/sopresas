@@ -68,7 +68,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
   const fieldStyle = (isWrong: boolean) => ({
     fontFamily: "var(--font-geist-sans)",
     color: isWrong ? "#e88096" : cream(0.9),
-    borderColor: isWrong ? "rgba(232,128,150,0.5)" : rose(0.2),
+    borderColor: isWrong ? "rgba(232,128,150,0.5)" : rose(0.45),
     caretColor: R,
     fontSize: "1.4rem",
     letterSpacing: "0.15em",
@@ -76,9 +76,9 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
 
   const labelStyle = {
     fontFamily: "var(--font-geist-sans)",
-    color: rose(0.3),
-    fontSize: "0.6rem",
-    letterSpacing: "0.4em",
+    color: rose(0.65),
+    fontSize: "0.75rem",
+    letterSpacing: "0.3em",
     textTransform: "uppercase" as const,
     marginTop: "0.5rem",
   };
@@ -108,10 +108,10 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(1.1rem, 3.5vw, 1.35rem)",
-            color: cream(0.72),
-            lineHeight: 1.6,
-            marginBottom: "2.5rem",
+            fontSize: "clamp(1.45rem, 5vw, 1.75rem)",
+            color: cream(0.9),
+            lineHeight: 1.5,
+            marginBottom: "1rem",
           }}
         >
           {CONFIG.script.dateInput.question}
@@ -124,9 +124,9 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(0.85rem, 2.5vw, 1rem)",
-            color: cream(0.35),
-            lineHeight: 1.6,
+            fontSize: "clamp(1.15rem, 4vw, 1.35rem)",
+            color: cream(0.65),
+            lineHeight: 1.5,
             marginBottom: "2.5rem",
           }}
         >
@@ -153,7 +153,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                 onChange={(e) => handleDd(e.target.value)}
                 placeholder="17"
                 autoFocus
-                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-20"
+                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
                 style={fieldStyle(wrong)}
               />
               <span style={labelStyle}>día</span>
@@ -171,7 +171,7 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                 value={mm}
                 onChange={(e) => handleMm(e.target.value)}
                 placeholder="03"
-                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-20"
+                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
                 style={fieldStyle(wrong)}
               />
               <span style={labelStyle}>mes</span>
@@ -189,33 +189,46 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
                 value={yyyy}
                 onChange={(e) => handleYyyy(e.target.value)}
                 placeholder="2026"
-                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-20"
+                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
                 style={fieldStyle(wrong)}
               />
               <span style={labelStyle}>año</span>
             </div>
           </motion.div>
 
-          <AnimatePresence>
-            {wrong && (
-              <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="mt-6 text-xs text-center"
-                style={{
-                  fontFamily: "var(--font-playfair-display)",
-                  fontStyle: "italic",
-                  color: "rgba(232,128,150,0.65)",
-                }}
-              >
-                {CONFIG.script.dateInput.wrongAnswer}
-              </motion.p>
-            )}
-          </AnimatePresence>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {wrong && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none z-50"
+            style={{ background: `rgb(20,8,14)` }}
+          >
+            <motion.p
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                fontFamily: "var(--font-playfair-display)",
+                fontStyle: "italic",
+                fontSize: "clamp(1.6rem, 6vw, 2rem)",
+                color: rose(0.9),
+                textAlign: "center",
+                padding: "0 2rem",
+                lineHeight: 1.5,
+              }}
+            >
+              {CONFIG.script.dateInput.wrongAnswer}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
@@ -269,6 +282,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.2 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
+      onClick={() => document.querySelector<HTMLInputElement>("input[type=tel]")?.focus()}
     >
       <div
         className="absolute w-96 h-96 rounded-full pointer-events-none"
@@ -286,10 +300,10 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(1.1rem, 3.5vw, 1.35rem)",
-            color: cream(0.72),
-            lineHeight: 1.6,
-            marginBottom: "0.75rem",
+            fontSize: "clamp(1.45rem, 5vw, 1.75rem)",
+            color: cream(0.9),
+            lineHeight: 1.5,
+            marginBottom: "1rem",
           }}
         >
           {CONFIG.script.pinInput.question}
@@ -302,9 +316,9 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(0.85rem, 2.5vw, 1rem)",
-            color: cream(0.35),
-            lineHeight: 1.6,
+            fontSize: "clamp(1.15rem, 4vw, 1.35rem)",
+            color: cream(0.65),
+            lineHeight: 1.5,
             marginBottom: "2.5rem",
           }}
         >
@@ -326,7 +340,7 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
                 key={i}
                 className="w-10 h-10 rounded-full border flex items-center justify-center"
                 style={{
-                  borderColor: wrong ? "rgba(232,128,150,0.4)" : rose(0.18),
+                  borderColor: wrong ? "rgba(232,128,150,0.7)" : rose(0.5),
                   background: pin.length > i ? rose(0.25) : "transparent",
                   transition: "background 0.2s",
                 }}
@@ -358,31 +372,44 @@ function PinScreen({ onUnlock }: { onUnlock: () => void }) {
               inp?.focus();
             }}
           >
-            <span className="text-xs text-center" style={{ color: rose(0.2), fontFamily: "var(--font-geist-sans)" }}>
-              toca aquí para escribir
+            <span className="text-xs text-center" style={{ color: rose(0.5), fontFamily: "var(--font-geist-sans)" }}>
+              toca aquí para ingresar
             </span>
           </div>
 
-          <AnimatePresence>
-            {wrong && (
-              <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="mt-6 text-xs text-center"
-                style={{
-                  fontFamily: "var(--font-playfair-display)",
-                  fontStyle: "italic",
-                  color: "rgba(232,128,150,0.65)",
-                }}
-              >
-                {CONFIG.script.pinInput.wrongAnswer}
-              </motion.p>
-            )}
-          </AnimatePresence>
         </motion.div>
       </div>
+
+      <AnimatePresence>
+        {wrong && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 flex flex-col items-center justify-center pointer-events-none z-50"
+            style={{ background: `rgb(20,8,14)` }}
+          >
+            <motion.p
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                fontFamily: "var(--font-playfair-display)",
+                fontStyle: "italic",
+                fontSize: "clamp(1.6rem, 6vw, 2rem)",
+                color: rose(0.9),
+                textAlign: "center",
+                padding: "0 2rem",
+                lineHeight: 1.5,
+              }}
+            >
+              {CONFIG.script.pinInput.wrongAnswer}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
