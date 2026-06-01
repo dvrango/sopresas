@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import { type Scene, hasBirthdayArrived } from "./gift/config";
+import { type Scene, hasBirthdayArrived, PHOTOS } from "./gift/config";
 import { track } from "../lib/analytics";
 import { AmbientParticles } from "./gift/AmbientParticles";
 import { PasswordScene } from "./gift/scenes/PasswordScene";
@@ -30,11 +30,18 @@ export default function GiftExperience() {
     return "password";
   });
   const audioRef = useRef<HTMLAudioElement>(null);
+  const audio2Ref = useRef<HTMLAudioElement>(null);
+
   useEffect(() => {
     const isReturn = !!localStorage.getItem("regalo_completed");
     const visits = parseInt(localStorage.getItem("regalo_visits") ?? "0") + 1;
     localStorage.setItem("regalo_visits", String(visits));
     track("gift_opened", { is_return_visitor: isReturn, visit_number: visits });
+
+    PHOTOS.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
   }, []);
 
   const [citaDirectEdit, setCitaDirectEdit] = useState(false);
@@ -54,16 +61,17 @@ export default function GiftExperience() {
   }, []);
 
   const handleSongEnded = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.src = "/audio/song2.mp3";
-      audioRef.current.loop = true;
-      audioRef.current.play().catch(() => {});
+    if (audio2Ref.current) {
+      audio2Ref.current.volume = audioRef.current?.volume ?? 0.55;
+      audio2Ref.current.loop = true;
+      audio2Ref.current.play().catch(() => {});
     }
   }, []);
 
   return (
     <div className="fixed inset-0 select-none" style={{ background: "#0a0608" }}>
       <audio ref={audioRef} src="/audio/song.mp3" preload="auto" onEnded={handleSongEnded} />
+      <audio ref={audio2Ref} src="/audio/song2.mp3" preload="auto" style={{ display: "none" }} />
       <AmbientParticles />
 
       <AnimatePresence mode="wait">
