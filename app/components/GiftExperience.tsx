@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
-import { type Scene } from "./gift/config";
+import { type Scene, hasBirthdayArrived } from "./gift/config";
 import { track } from "../lib/analytics";
 import { AmbientParticles } from "./gift/AmbientParticles";
 import { PasswordScene } from "./gift/scenes/PasswordScene";
@@ -17,12 +17,15 @@ import { DateSuccessScene } from "./gift/scenes/DateSuccessScene";
 import { ReturnScene } from "./gift/scenes/ReturnScene";
 import { SurpriseScene } from "./gift/scenes/SurpriseScene";
 import { VolumeScene } from "./gift/scenes/VolumeScene";
+import { CountdownScene } from "./gift/scenes/CountdownScene";
+import { CitaScene } from "./gift/scenes/CitaScene";
+import { BirthdayArrivalScene } from "./gift/scenes/BirthdayArrivalScene";
 
 export default function GiftExperience() {
   const [scene, setScene] = useState<Scene>(() => {
     if (typeof window !== "undefined") {
       if (localStorage.getItem("regalo_completed")) return "return";
-      if (localStorage.getItem("regalo_unlocked")) return "volume";
+      if (localStorage.getItem("regalo_unlocked")) return hasBirthdayArrived() ? "birthdayArrival" : "countdown";
     }
     return "password";
   });
@@ -62,17 +65,20 @@ export default function GiftExperience() {
       <AmbientParticles />
 
       <AnimatePresence mode="wait">
-        {scene === "volume" && (
-          <VolumeScene key="volume" onContinue={() => goTo("password")} />
+        {scene === "countdown" && (
+          <CountdownScene key="countdown" />
         )}
         {scene === "password" && (
           <PasswordScene key="password" onUnlock={() => goTo("dateSuccess")} />
         )}
         {scene === "dateSuccess" && (
-          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo("volume"); }} onStart={startMusic} />
+          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo(hasBirthdayArrived() ? "birthdayArrival" : "countdown"); }} onStart={hasBirthdayArrived() ? startMusic : undefined} />
         )}
         {scene === "volume" && (
           <VolumeScene key="volume" onContinue={() => goTo("intro")} />
+        )}
+        {scene === "birthdayArrival" && (
+          <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("volume")} />
         )}
         {scene === "intro" && (
           <IntroScene key="intro" onNext={() => goTo("name")} />
@@ -99,7 +105,10 @@ export default function GiftExperience() {
           <ReturnScene key="return" onReplay={() => { startMusic(); goTo("intro"); }} onSurprise={() => goTo("surprise")} />
         )}
         {scene === "surprise" && (
-          <SurpriseScene key="surprise" onBack={() => goTo("return")} />
+          <SurpriseScene key="surprise" onBack={() => goTo("return")} onSpecialStar={() => goTo("cita")} />
+        )}
+        {scene === "cita" && (
+          <CitaScene key="cita" onBack={() => goTo("surprise")} />
         )}
       </AnimatePresence>
     </div>

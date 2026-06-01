@@ -15,7 +15,7 @@ export const PHOTOS = [
 ];
 export const INTRO_PHOTO_COUNT = 2;
 
-export const BIRTHDAY_ISO = "2026-06-07";
+export const BIRTHDAY_ISO = "2026-06-01";
 export const hasBirthdayArrived = () => {
   const d = new Date();
   const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -33,8 +33,8 @@ export const CONFIG = {
   moments: [
     {
       roman: "I",
-      title: "Los buenos recuerdos",
-      text: "Me llevo todo lo bonito que vivimos juntos",
+      title: "Nuestra historia",
+      text: "Me encanto conocerte, me quedo todo lo bonito que vivimos juntos",
     },
     {
       roman: "II",
@@ -43,25 +43,25 @@ export const CONFIG = {
     },
     {
       roman: "III",
-      title: "Mis mejores deseos",
+      title: "Te deseo lo mejor",
       text: "Que la vida te llene de éxitos, paz y que cumplas todo lo que te propongas en esta nueva etapa.",
     },
   ],
   letter: [
-    "Quería dejarte un último detalle",
+    "Quería dejarte este detalle",
     "para celebrar tu cumpleaños.",
     "",
-    "Aunque nuestros caminos cambien,",
-    "te deseo genuinamente lo mejor.",
+    "Quiero que sepas que fuiste",
+    "alguien muy especial para mi,",
     "",
     "Eres una gran persona",
     "y mereces que te pasen",
-    "puras cosas increíbles",
-    "en esta nueva vuelta al sol.",
+    "puras cosas increíbles.",
     "",
-    "Te mando un abrazo y un ultimo beso,",
+    "Siempre estaras en mis recuerdos Cami,",
+    "te mando un abrazo y un beso",
   ],
-signature: "Con cariño,",
+signature: "Con mucho cariño,",
   finalLine1: "Que disfrutes muchisimo",
   finalLine2: "tus 21's.",
 
@@ -112,6 +112,59 @@ signature: "Con cariño,",
     name: {
       label: "esto es para ti",
     },
+
+    surprise: {
+      intro: "cada estrella es algo que descubrí de ti…",
+      hint: "",
+      stars: [
+        { name: "tu risa",         text: "Especialmente con las cosquillas",                x: 22, y: 14 },
+        { name: "tu musica",text: "Nunca la entendi jaja pero debo aceptar que algunas canciones si eran buenas",                    x: 62, y: 19 },
+        { name: "trabajadora y responsable",     text: "Levantarte a las 5 am y con 20 alarmas y asi irte a trabajar, decia mucho de ti",      x: 78, y: 36 },
+        { name: "tu de chiquita",      text: "Querias ser maestra, y tu primer recuerdo es cuando sentias tus manos quemadas",            x: 42, y: 27 },
+        { name: "tu autenticidad", text: "Nunca tratas de ser otra persona. Y tu forma de vestir y arreglarte siempre me encanto",       x: 28, y: 46 },
+        { name: "lo que no te gusta",    text: "Nopales, menudo, higado, champiñones y que no te muerdaa. Ah y los chiles rellenos definitivamente.",  x: 68, y: 54 },
+        { name: "tu valentía",     text: "Le entras a las cosas difíciles aunque den miedo. Eso no es poca cosa.",   x: 18, y: 66 },
+        { name: "tu corazón",      text: "Eres genuinamente buena persona. Mas cuando se te acerca un perrito de la callee",    x: 52, y: 71 },
+        { name: "lo que inspiras", text: "Conocerte me hizo querer ser mejor. Eso no te lo había dicho.",           x: 78, y: 73 },
+        { name: "tus pasatiempos",          text: "Te gusta escribir, tejer y hacer pasteles, mmm lo de cocinar aun no se si se te da bieen jaja ntc",    x: 36, y: 76 },
+        { name: "una estrella más",           text: "creo que nuestra historia tiene un capítulo más.", x: 50, y: 48, link: "/cita" },
+      ],
+      connections: [[0,3],[3,1],[1,2],[0,4],[3,4],[2,5],[4,6],[5,7],[5,8],[7,8],[6,7],[7,9]],
+    },
+
+    countdown: {
+      title: "aguanta un poco maaaasss Camii",
+      subtitle: "aún no es tu cumpleaños 🙈",
+      hint: "ya falta poco",
+      tease: "la paciencia es una virtud, ¿recuerdas? :)",
+    },
+
+    cita: {
+      dialog: [
+        { text: "oye…", delay: 800 },
+        { text: "las buenas historias no siempre terminan en la última página.", delay: 2800 },
+        { text: "a veces hay un capítulo que se quedó sin escribir.", delay: 6200, suspense: true },
+        { text: "y yo creo que el nuestro todavía tiene páginas.", delay: 9800 },
+        { text: "¿te gustaría seguir leyendo?", delay: 13000, suspense: true },
+        { text: "porque yo sí.", delay: 16200 },
+      ] as DialogLine[],
+      ticket: {
+        label: "vale por",
+        title: "una cita",
+        subtitle: "contigo",
+        detail: "sin fecha de vencimiento",
+        cta: "acepto ♡",
+      },
+    },
+
+    birthdayArrivalDialog: [
+      { text: "oye…", delay: 600 },
+      { text: "¡por fin llegó!", delay: 2000 },
+      { text: "sabía que esperabas este día con muchísimas ganas.", delay: 4000 , suspense: true },
+      { text: "hoy cumples 21.", delay: 7000 },
+      { text: "este día es tuyo, Cami.", delay: 9200, suspense: true },
+      { text: "deseo que lo disfrutes muchísimo", delay: 12000 },
+    ] as DialogLine[],
   },
 };
 // ──────────────────────────────────────────────────────────────────────────────
@@ -128,6 +181,8 @@ export type Scene =
   | "volume"
   | "password"
   | "dateSuccess"
+  | "countdown"
+  | "birthdayArrival"
   | "intro"
   | "name"
   | "birthday"
@@ -136,4 +191,5 @@ export type Scene =
   | "letter"
   | "finale"
   | "return"
-  | "surprise";
+  | "surprise"
+  | "cita";

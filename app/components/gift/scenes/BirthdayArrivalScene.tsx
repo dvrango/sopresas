@@ -2,20 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { rose, lavender, cream } from "../config";
+import { rose, lavender, cream, CONFIG } from "../config";
 
-interface Props {
-  onContinue: () => void;
-}
+const LINES = CONFIG.script.birthdayArrivalDialog;
 
-const LINES = [
-  { text: "oye…", delay: 400 },
-  { text: "antes de empezar,", delay: 1600 },
-  { text: "sube el volumen de tu celular.", delay: 2800 },
-  { text: "y el brillo también.", delay: 4000 },
-];
-
-export function VolumeScene({ onContinue }: Props) {
+export function BirthdayArrivalScene({ onNext }: { onNext: () => void }) {
   const [visibleCount, setVisibleCount] = useState(0);
   const [showHint, setShowHint] = useState(false);
 
@@ -23,7 +14,8 @@ export function VolumeScene({ onContinue }: Props) {
     const timers = LINES.map((line, i) =>
       setTimeout(() => setVisibleCount(i + 1), line.delay)
     );
-    const hintTimer = setTimeout(() => setShowHint(true), 5600);
+    const lastDelay = LINES[LINES.length - 1].delay + 2400;
+    const hintTimer = setTimeout(() => setShowHint(true), lastDelay);
     return () => {
       timers.forEach(clearTimeout);
       clearTimeout(hintTimer);
@@ -35,18 +27,18 @@ export function VolumeScene({ onContinue }: Props) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1.2 }}
+      transition={{ duration: 1.4 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
-      onClick={showHint ? onContinue : undefined}
+      onClick={showHint ? onNext : undefined}
     >
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
-          width: "70vw",
-          height: "70vw",
-          maxWidth: 480,
-          maxHeight: 480,
-          background: `radial-gradient(circle, ${rose(0.06)} 0%, ${lavender(0.04)} 40%, transparent 70%)`,
+          width: "80vw",
+          height: "80vw",
+          maxWidth: 520,
+          maxHeight: 520,
+          background: `radial-gradient(circle, ${rose(0.09)} 0%, ${lavender(0.05)} 40%, transparent 70%)`,
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
@@ -59,16 +51,28 @@ export function VolumeScene({ onContinue }: Props) {
           <AnimatePresence key={i}>
             {visibleCount > i && (
               <motion.p
-                initial={{ opacity: 0, y: 8 }}
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: "easeOut" }}
+                transition={{ duration: 1.0, ease: "easeOut" }}
                 style={{
                   fontFamily: "var(--font-playfair-display)",
                   fontStyle: "italic",
-                  fontSize: "clamp(1.4rem, 4.5vw, 1.75rem)",
-                  color: i === 0 ? cream(0.72) : i === 2 || i === 3 ? cream(0.9) : cream(0.5),
+                  fontSize: line.suspense
+                    ? "clamp(1.6rem, 5vw, 2rem)"
+                    : "clamp(1.4rem, 4.5vw, 1.75rem)",
+                  color:
+                    i === 0
+                      ? cream(0.65)
+                      : line.suspense
+                      ? cream(1)
+                      : i >= 4
+                      ? cream(0.92)
+                      : cream(0.5),
                   lineHeight: 1.7,
-                  marginBottom: "0.1rem",
+                  marginBottom: "0.15rem",
+                  ...(line.suspense && {
+                    filter: `drop-shadow(0 0 10px ${rose(0.5)})`,
+                  }),
                 }}
               >
                 {line.text}
@@ -83,7 +87,7 @@ export function VolumeScene({ onContinue }: Props) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 1.2 }}
+              transition={{ duration: 1.4 }}
               style={{
                 fontFamily: "var(--font-geist-sans)",
                 fontSize: "0.85rem",
@@ -93,7 +97,7 @@ export function VolumeScene({ onContinue }: Props) {
                 marginTop: "2.5rem",
               }}
             >
-              Ya ahora si, toca la pantalla para iniciar jeje
+              toca para continuar
             </motion.p>
           )}
         </AnimatePresence>

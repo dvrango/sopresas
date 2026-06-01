@@ -121,7 +121,7 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
           transition={{ delay: 3.8, duration: 1.4 }}
           onClick={onRestart}
           className="text-xs tracking-[0.45em] uppercase transition-all duration-700 hover:tracking-[0.6em]"
-          style={{ color: rose(0.25) }}
+          style={{ color: rose(0.9) }}
         >
           lo quieres ver de nuevo?
         </motion.button>
