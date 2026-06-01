@@ -15,6 +15,13 @@ export const PHOTOS = [
 ];
 export const INTRO_PHOTO_COUNT = 2;
 
+export const BIRTHDAY_ISO = "2026-06-07";
+export const hasBirthdayArrived = () => {
+  const d = new Date();
+  const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  return today >= BIRTHDAY_ISO;
+};
+
 // ─── EDIT THIS SECTION ────────────────────────────────────────────────────────
 export const CONFIG = {
   recipientName: "Cami",
@@ -60,11 +67,11 @@ signature: "Con cariño,",
 
   // ─── SCRIPT / DIALOGUES ───────────────────────────────────────────────────
   script: {
-    introDialog: [
+    introDialog: (arrived: boolean) => [
       { text: "oye…", delay: 800 },
-      { text: "hoy es un día especial, ¿verdad?", delay: 2800 },
+      { text: arrived ? "hoy es un día especial, ¿verdad?" : "se acerca un día especial, ¿verdad?", delay: 2800 },
       { text: "creias que lo había olvidado?", delay: 5200 },
-      { text: "te preparé este detalle por tu cumple.", delay: 7800, suspense: true },
+      { text: arrived ? "te preparé este detalle por tu cumple." : "te preparé una sorpresa.", delay: 7800, suspense: true },
       { text: "pero espera un momento.", delay: 10400, suspense: true },
       { text: "antes necesitamos una pequeña prueba de seguridad.", delay: 13400, resetBefore: true },
       { text: "no vaya a ser que alguien más lo abra.", delay: 16400 },

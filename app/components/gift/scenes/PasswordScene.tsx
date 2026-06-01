@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN, CONFIG } from "../config";
+import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN, CONFIG, hasBirthdayArrived } from "../config";
 import { DialogLines } from "../DialogLines";
 import { track } from "../../../lib/analytics";
 function DialogScreen({ onDone }: { onDone: () => void }) {
@@ -15,7 +15,7 @@ function DialogScreen({ onDone }: { onDone: () => void }) {
       transition={{ duration: 1.2 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
     >
-      <DialogLines lines={CONFIG.script.introDialog} onDone={onDone} />
+      <DialogLines lines={CONFIG.script.introDialog(hasBirthdayArrived())} onDone={onDone} />
     </motion.div>
   );
 }
