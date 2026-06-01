@@ -37,6 +37,8 @@ export default function GiftExperience() {
     track("gift_opened", { is_return_visitor: isReturn, visit_number: visits });
   }, []);
 
+  const [citaDirectEdit, setCitaDirectEdit] = useState(false);
+
   const goTo = useCallback((next: Scene) => {
     if (next === "finale") track("gift_completed");
     if (next === "surprise") track("surprise_visited");
@@ -102,13 +104,13 @@ export default function GiftExperience() {
           <FinaleScene key="finale" onRestart={() => goTo("return")} />
         )}
         {scene === "return" && (
-          <ReturnScene key="return" onReplay={() => { startMusic(); goTo("intro"); }} onSurprise={() => goTo("surprise")} />
+          <ReturnScene key="return" onReplay={() => { startMusic(); goTo("intro"); }} onSurprise={() => goTo("surprise")} onCita={() => { setCitaDirectEdit(true); goTo("cita"); }} />
         )}
         {scene === "surprise" && (
-          <SurpriseScene key="surprise" onBack={() => goTo("return")} onSpecialStar={() => goTo("cita")} />
+          <SurpriseScene key="surprise" onBack={() => goTo("return")} onSpecialStar={() => { setCitaDirectEdit(false); goTo("cita"); }} />
         )}
         {scene === "cita" && (
-          <CitaScene key="cita" onBack={() => goTo("surprise")} />
+          <CitaScene key="cita" onBack={() => goTo("surprise")} onDone={() => goTo("return")} directEdit={citaDirectEdit} />
         )}
       </AnimatePresence>
     </div>

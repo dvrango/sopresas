@@ -44,7 +44,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
           textAlign: "center",
           fontFamily: "var(--font-playfair-display)",
           fontStyle: "italic",
-          fontSize: "clamp(0.85rem, 3vw, 1.05rem)",
+          fontSize: "clamp(1rem, 3.5vw, 1.2rem)",
           color: cream(0.85),
           zIndex: 10,
           pointerEvents: "none",
@@ -135,7 +135,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
                 transform: "translateX(-50%)",
                 whiteSpace: "nowrap",
                 fontFamily: "var(--font-geist-sans)",
-                fontSize: "0.52rem",
+                fontSize: "0.68rem",
                 letterSpacing: "0.15em",
                 color: cream(0.8),
                 pointerEvents: "none",
@@ -163,7 +163,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
               right: 0,
               textAlign: "center",
               fontFamily: "var(--font-geist-sans)",
-              fontSize: "0.6rem",
+              fontSize: "0.72rem",
               letterSpacing: "0.35em",
               textTransform: "uppercase",
               color: rose(0.75),
@@ -206,7 +206,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
           >
             <p style={{
               fontFamily: "var(--font-geist-sans)",
-              fontSize: "0.6rem",
+              fontSize: "0.72rem",
               letterSpacing: "0.35em",
               textTransform: "uppercase",
               color: rose(0.6),
@@ -216,7 +216,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
             <p style={{
               fontFamily: "var(--font-playfair-display)",
               fontStyle: "italic",
-              fontSize: "clamp(1.1rem, 4vw, 1.35rem)",
+              fontSize: "clamp(1.25rem, 4.5vw, 1.5rem)",
               color: cream(0.9),
               lineHeight: 1.6,
             }}>
@@ -262,7 +262,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
           right: 0,
           textAlign: "center",
           fontFamily: "var(--font-geist-sans)",
-          fontSize: "0.55rem",
+          fontSize: "0.68rem",
           letterSpacing: "0.4em",
           textTransform: "uppercase",
           color: rose(0.7),

@@ -93,7 +93,7 @@ export function VolumeScene({ onContinue }: Props) {
                 marginTop: "2.5rem",
               }}
             >
-              Ya ahora si, toca la pantalla para iniciar jeje
+              Ya ahora si, toca la pantalla para iniciar
             </motion.p>
           )}
         </AnimatePresence>
