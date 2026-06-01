@@ -86,7 +86,7 @@ signature: "Con cariño,",
 
  pinInput: {
       question: "primero, una pregunta…",
-      subtitle: "pon aqui tu dificilisimo pin de Disney+",
+      subtitle: "recuerdas tu dificilisimo pin de Disney+?",
       wrongAnswer: "ya no te acuerdas de tu pin??",
     },
 

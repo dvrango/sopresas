@@ -20,8 +20,9 @@ import { VolumeScene } from "./gift/scenes/VolumeScene";
 
 export default function GiftExperience() {
   const [scene, setScene] = useState<Scene>(() => {
-    if (typeof window !== "undefined" && localStorage.getItem("regalo_completed")) {
-      return "return";
+    if (typeof window !== "undefined") {
+      if (localStorage.getItem("regalo_completed")) return "return";
+      if (localStorage.getItem("regalo_unlocked")) return "volume";
     }
     return "password";
   });
@@ -68,7 +69,7 @@ export default function GiftExperience() {
           <PasswordScene key="password" onUnlock={() => goTo("dateSuccess")} />
         )}
         {scene === "dateSuccess" && (
-          <DateSuccessScene key="dateSuccess" onNext={() => goTo("volume")} onStart={startMusic} />
+          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo("volume"); }} onStart={startMusic} />
         )}
         {scene === "volume" && (
           <VolumeScene key="volume" onContinue={() => goTo("intro")} />

@@ -65,7 +65,7 @@ export function VolumeScene({ onContinue }: Props) {
                 style={{
                   fontFamily: "var(--font-playfair-display)",
                   fontStyle: "italic",
-                  fontSize: "clamp(1.1rem, 3.5vw, 1.35rem)",
+                  fontSize: "clamp(1.4rem, 4.5vw, 1.75rem)",
                   color: i === 0 ? cream(0.72) : i === 2 || i === 3 ? cream(0.9) : cream(0.5),
                   lineHeight: 1.7,
                   marginBottom: "0.1rem",
@@ -86,10 +86,10 @@ export function VolumeScene({ onContinue }: Props) {
               transition={{ duration: 1.2 }}
               style={{
                 fontFamily: "var(--font-geist-sans)",
-                fontSize: "0.65rem",
+                fontSize: "0.85rem",
                 letterSpacing: "0.35em",
                 textTransform: "uppercase" as const,
-                color: rose(0.3),
+                color: rose(0.7),
                 marginTop: "2.5rem",
               }}
             >
