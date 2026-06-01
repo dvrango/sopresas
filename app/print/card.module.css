@@ -1,0 +1,299 @@
+/* ── Print page setup ──────────────────────────────────── */
+@page {
+  size: 148mm 210mm;
+  margin: 0;
+}
+
+@media print {
+  .overlay {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    min-height: unset !important;
+  }
+}
+
+/* ── Screen wrapper ────────────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #b0a89f;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0;
+  font-family: var(--font-poppins), system-ui, sans-serif;
+}
+
+/* ── Card ──────────────────────────────────────────────── */
+.card {
+  width: 148mm;
+  min-height: 210mm;
+  background: #f5ebe0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 7mm 10mm 7mm;
+  box-shadow:
+    0 6px 48px rgba(0, 0, 0, 0.22),
+    0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Subtle paper grain */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Decorative layers (absolute) ──────────────────────── */
+.watercolorLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.balloon {
+  position: absolute;
+  top: -4mm;
+  left: -8mm;
+  width: 56mm;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.starsLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Cake icon ─────────────────────────────────────────── */
+.cakeIcon {
+  width: 32px;
+  height: 32px;
+  margin-top: 4mm;
+  margin-bottom: 3mm;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+/* ── Title block — FELIZ + Cumpleaños overlapping ─────── */
+.titleBlock {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2mm;
+}
+
+/* ── FELIZ ─────────────────────────────────────────────── */
+.titleFeliz {
+  font-family: var(--font-cormorant), "Georgia", serif;
+  font-size: 48pt;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: #2a2520;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 0 0mm;
+  padding-right: 0;
+}
+
+/* ── cumpleGroup — rotates cumpleaños + underline together */
+.cumpleGroup {
+  transform: rotate(-5deg);
+  transform-origin: left center;
+  margin: 1mm 0 3mm 18mm;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* ── Cumpleaños ────────────────────────────────────────── */
+.titleCumple {
+  font-family: var(--font-parisienne), cursive;
+  font-size: 33pt;
+  color: #c28780;
+  line-height: 1.0;
+  margin: 0 0 0mm;
+}
+
+/* ── Cumpleaños underline decoration ───────────────────── */
+.cumpleUnderline {
+  display: block;
+  width: 52mm;
+  height: 8px;
+  margin: 0;
+}
+
+/* ── Thin divider (hidden — replaced by cumpleUnderline) ── */
+.divider {
+  display: none;
+}
+
+/* ── Secondary text ────────────────────────────────────── */
+.subtitle {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 10pt;
+  font-weight: 600;
+  color: #7a6860;
+  text-align: center;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
+  position: relative;
+  z-index: 2;
+  margin: 0 0 1.5mm;
+  max-width: 95mm;
+}
+
+.subtitle:last-of-type {
+  margin-bottom: 7mm;
+}
+
+.highlight {
+  color: #c28780;
+  font-weight: 400;
+}
+
+/* ── QR area ───────────────────────────────────────────── */
+.qrWrapper {
+  position: relative;
+  z-index: 2;
+  margin: 0 0 6mm;
+  flex-shrink: 0;
+}
+
+.doodlesQr {
+  position: absolute;
+  inset: -8mm;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.qrCard {
+  background: #ffffff;
+  border-radius: 4.5mm;
+  padding: 5.5mm;
+  position: relative;
+  z-index: 1;
+  box-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.07),
+    0 0 0 0.3mm rgba(0, 0, 0, 0.035);
+}
+
+/* ── QR placeholder — replace contents with actual QR ─── */
+.qrPlaceholder {
+  width: 66mm;
+  height: 66mm;
+  border-radius: 2mm;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.qrLabel {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 5.5pt;
+  color: #c8b8b2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* ── Torn paper strip ──────────────────────────────────── */
+.tornWrapper {
+  position: relative;
+  z-index: 2;
+  width: 108mm;
+  flex-shrink: 0;
+}
+
+.tape {
+  position: absolute;
+  top: -4.5mm;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.2deg);
+  width: 20mm;
+  height: 6.5mm;
+  background: rgba(210, 183, 148, 0.48);
+  border-radius: 0.8mm;
+  z-index: 4;
+  box-shadow: inset 0 0 0 0.2mm rgba(170, 140, 100, 0.25);
+}
+
+.tornTop {
+  display: block;
+  width: 100%;
+  height: 10px;
+  margin-bottom: -1px;
+  position: relative;
+  z-index: 2;
+}
+
+.tornBody {
+  background: #f5ede0;
+  padding: 2.5mm 8mm;
+  position: relative;
+  z-index: 2;
+}
+
+.tornBottom {
+  display: block;
+  width: 100%;
+  height: 10px;
+  margin-top: -1px;
+  position: relative;
+  z-index: 2;
+}
+
+.tornText {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 10pt;
+  font-weight: 300;
+  color: #7a6860;
+  text-align: center;
+  letter-spacing: 0.08em;
+  font-style: italic;
+}
+
+/* ── Lock + footer ─────────────────────────────────────── */
+.lockSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2mm;
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-top: 6mm;
+}
+
+.lockIcon {
+  width: 12px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+
+.lockText {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: 6pt;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  color: #9a8880;
+  text-transform: uppercase;
+}
