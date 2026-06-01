@@ -1,5 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 
+function fmtDate(d: unknown) {
+  if (!d) return "?";
+  const [y, m, day] = String(d).split("-").map(Number);
+  return new Date(y, m - 1, day).toLocaleDateString("es-MX", {
+    weekday: "long", day: "numeric", month: "long",
+  });
+}
+
+function fmtTime(t: unknown) {
+  if (!t) return "?";
+  const [h, min] = String(t).split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, min);
+  return d.toLocaleTimeString("es-MX", { hour: "numeric", minute: "2-digit", hour12: true });
+}
+
 const MESSAGES: Record<string, (data: Record<string, unknown>) => string> = {
   gift_opened: (d) => {
     const n = d.visit_number as number;
@@ -14,8 +30,8 @@ const MESSAGES: Record<string, (data: Record<string, unknown>) => string> = {
   music_started: () => "🎵 La música empezó a sonar",
   gift_completed: () => "🥹 Llegó al final del regalo!!",
   surprise_visited: () => "🎀 Abrió la sección sorpresa",
-  cita_accepted: (d) => `💌 Aceptó la cita!! — Día: ${d.date}, Hora: ${d.time}, Lugar: ${d.place}`,
-  cita_changed: (d) => `🔄 Cami cambió la cita — Antes: ${d.prev_date} ${d.prev_time} (${d.prev_place}) → Ahora: ${d.date} ${d.time} (${d.place})`,
+  cita_accepted: (d) => `💌 Aceptó la cita!! — ${fmtDate(d.date)} a las ${fmtTime(d.time)}, en ${d.place}`,
+  cita_changed: (d) => `🔄 Cami cambió la cita — Antes: ${fmtDate(d.prev_date)} ${fmtTime(d.prev_time)} (${d.prev_place}) → Ahora: ${fmtDate(d.date)} ${fmtTime(d.time)} (${d.place})`,
   cita_declined: () => "💔 Declinó la cita por ahora",
   cita_cancelled: () => "❌ Cami canceló la cita",
 };
