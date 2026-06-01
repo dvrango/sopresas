@@ -14,8 +14,8 @@ const MESSAGES: Record<string, (data: Record<string, unknown>) => string> = {
   music_started: () => "🎵 La música empezó a sonar",
   gift_completed: () => "🥹 Llegó al final del regalo!!",
   surprise_visited: () => "🎀 Abrió la sección sorpresa",
-  cita_accepted: (d) => `💌 Aceptó la cita!! — Día: ${d.date}, Hora: ${d.time}`,
-  cita_changed: (d) => `🔄 Cami cambió la cita — Antes: ${d.prev_date} ${d.prev_time} → Ahora: ${d.date} ${d.time}`,
+  cita_accepted: (d) => `💌 Aceptó la cita!! — Día: ${d.date}, Hora: ${d.time}, Lugar: ${d.place}`,
+  cita_changed: (d) => `🔄 Cami cambió la cita — Antes: ${d.prev_date} ${d.prev_time} (${d.prev_place}) → Ahora: ${d.date} ${d.time} (${d.place})`,
   cita_declined: () => "💔 Declinó la cita por ahora",
   cita_cancelled: () => "❌ Cami canceló la cita",
 };
