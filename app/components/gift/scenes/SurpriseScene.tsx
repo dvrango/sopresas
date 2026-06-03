@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { rose, lavender, cream, R, CONFIG } from "../config";
 
@@ -10,6 +10,14 @@ const CONNECTIONS = CONFIG.script.surprise.connections;
 export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; onSpecialStar?: () => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
+  const [showOverlay, setShowOverlay] = useState(true);
+  const [hintDone, setHintDone] = useState(false);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setShowOverlay(false), 3200);
+    const t2 = setTimeout(() => setHintDone(true), 7500);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
 
   const handleStar = (i: number) => {
     if (STARS[i].link && onSpecialStar) {
@@ -31,6 +39,48 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
       className="fixed inset-0"
       style={{ background: "#07040a" }}
     >
+      {/* entrance overlay */}
+      <AnimatePresence>
+        {showOverlay && (
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+            onClick={() => setShowOverlay(false)}
+            style={{
+              position: "absolute",
+              inset: 0,
+              zIndex: 50,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#07040a",
+              cursor: "pointer",
+            }}
+          >
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 1.2 }}
+              style={{
+                fontFamily: "var(--font-playfair-display)",
+                fontStyle: "italic",
+                fontSize: "clamp(1.3rem, 5vw, 1.8rem)",
+                color: cream(0.9),
+                textAlign: "center",
+                lineHeight: 1.7,
+                padding: "0 2rem",
+                pointerEvents: "none",
+              }}
+            >
+              {CONFIG.script.surprise.overlayIntro}
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* intro text */}
       <motion.p
         initial={{ opacity: 0 }}
@@ -78,12 +128,15 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
       {STARS.map((star, i) => {
         const isSelected = selected === i;
         const isRevealed = revealed.has(i);
+        const isHintStar = i === 0 && !isRevealed && !showOverlay && !hintDone;
         return (
           <motion.button
             key={i}
             initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8 + i * 0.1, duration: 0.5, type: "spring", stiffness: 200 }}
+            animate={isHintStar ? { opacity: 1, scale: 1, x: [0, -5, 5, -5, 5, 0] } : { opacity: 1, scale: 1, x: 0 }}
+            transition={isHintStar
+              ? { opacity: { delay: 0.8, duration: 0.5 }, scale: { delay: 0.8, duration: 0.5, type: "spring", stiffness: 200 }, x: { delay: 3.8, duration: 0.4, repeat: 2, repeatDelay: 1.2, ease: "easeInOut" } }
+              : { delay: 0.8 + i * 0.1, duration: 0.5, type: "spring", stiffness: 200 }}
             onClick={() => handleStar(i)}
             style={{
               position: "absolute",

@@ -158,7 +158,7 @@ export default function GiftExperience() {
           <SurpriseScene key="surprise" onBack={() => goTo("return")} onSpecialStar={() => { setCitaDirectEdit(false); goTo("cita"); }} />
         )}
         {scene === "cita" && (
-          <CitaScene key="cita" onBack={() => goTo("surprise")} onDone={() => goTo("return")} directEdit={citaDirectEdit} />
+          <CitaScene key="cita" onBack={() => goTo("surprise")} directEdit={citaDirectEdit} />
         )}
       </AnimatePresence>
     </div>

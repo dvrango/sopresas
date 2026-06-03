@@ -114,7 +114,8 @@ signature: "Con mucho cariño,",
     },
 
     surprise: {
-      intro: "toca una estrella, cada una es algo que descubrí de ti…",
+      intro: "algunas estrellas esconden cosas, toca una y descúbrelo",
+      overlayIntro: "cada estrella es algo que descubrí de ti…",
       hint: "",
       stars: [
         { name: "tu risa",         text: "Especialmente con las cosquillas",                x: 22, y: 14 },
@@ -152,7 +153,7 @@ signature: "Con mucho cariño,",
         label: "vale por",
         title: "una cita",
         subtitle: "contigo",
-        detail: "sin fecha de vencimiento",
+        detail: "si sonries, no se aceptan devoluciones. ♡",
         ctaAccept: "acepto ♡",
         ctaDecline: "quizás otro día…",
       },
