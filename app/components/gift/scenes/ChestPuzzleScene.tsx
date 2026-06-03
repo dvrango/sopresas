@@ -6,6 +6,7 @@ import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import chestData from "../../../../public/chest.json";
 import { rose, cream, CONFIG } from "../config";
 import { Fireworks } from "../Fireworks";
+import { track } from "../../../lib/analytics";
 
 const isCorrect = (s: string) => {
   const lower = s.toLowerCase();
@@ -23,6 +24,7 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
+    track("chest_puzzle_entered");
     const t = setTimeout(() => {
       setShowInput(true);
       setTimeout(() => inputRef.current?.focus(), 400);
@@ -33,11 +35,13 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
   const attempt = useCallback(
     (val: string) => {
       if (isCorrect(val)) {
+        track("chest_puzzle_solved", { answer: val.trim().toLowerCase() });
         setOpened(true);
         lottieRef.current?.goToAndPlay(0, true);
         setTimeout(() => setShowSuccess(true), 1200);
         setTimeout(() => onNext(), 4000);
       } else {
+        track("chest_puzzle_wrong", { attempt: val.trim().toLowerCase() });
         setShake(true);
         setWrong(true);
         setInput("");

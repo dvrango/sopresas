@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { rose, lavender, cream, R, CONFIG } from "../config";
+import { track } from "../../../lib/analytics";
 import { DialogLines } from "../DialogLines";
 
 type Phase = "dialog" | "ticket" | "accepted" | "declined";
@@ -153,31 +154,21 @@ function DeclinedView({ onBack }: { onBack: () => void }) {
 function TicketScene({ onAccept, onDecline, onBack }: { onAccept: () => void; onDecline: () => void; onBack: () => void }) {
   const t = CONFIG.script.cita.ticket;
 
-  async function handleAccept() {
-    try {
-      await fetch("/api/log", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "cita_accepted" }),
-      });
-    } catch {
-      // ignore
-    }
+  useEffect(() => {
+    track("cita_ticket_viewed");
+  }, []);
+
+  function handleAccept() {
+    track("cita_accepted");
     onAccept();
   }
 
-  async function handleDecline() {
-    try {
-      await fetch("/api/log", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "cita_declined" }),
-      });
-    } catch {
-      // ignore
-    }
+  function handleDecline() {
+    track("cita_declined");
     onDecline();
   }
+
+  const pageBg = "#07040a";
 
   return (
     <motion.div
@@ -197,127 +188,185 @@ function TicketScene({ onAccept, onDecline, onBack }: { onAccept: () => void; on
       />
 
       <motion.div
-        initial={{ opacity: 0, scale: 0.88, y: 20 }}
+        initial={{ opacity: 0, scale: 0.88, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
+        transition={{ delay: 0.3, duration: 1.1, ease: "easeOut" }}
         style={{
           position: "relative",
           width: "100%",
-          maxWidth: 320,
-          border: `1px solid ${rose(0.3)}`,
-          borderRadius: 2,
-          padding: "2.5rem 2rem",
+          maxWidth: 300,
+          border: `1px solid ${rose(0.28)}`,
+          borderRadius: 3,
+          background: "rgba(18,8,22,0.92)",
+          boxShadow: `0 0 50px ${rose(0.07)}, 0 0 100px ${lavender(0.04)}, inset 0 0 40px rgba(0,0,0,0.4)`,
+        }}
+      >
+        {/* Inner border ornament */}
+        <div style={{
+          position: "absolute", inset: 5,
+          border: `1px solid ${rose(0.1)}`,
+          borderRadius: 1,
+          pointerEvents: "none",
+        }} />
+
+        {/* Main body */}
+        <div style={{
+          padding: "2rem 2.25rem 1.75rem",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: "1.25rem",
-          background: "rgba(15,6,18,0.85)",
-          boxShadow: `0 0 40px ${rose(0.06)}, 0 0 80px ${lavender(0.04)}`,
-        }}
-      >
-        <div style={{
-          position: "absolute", top: 36, left: 0, right: 0,
-          borderTop: `1px dashed ${rose(0.15)}`,
-        }} />
-        <div style={{
-          position: "absolute", bottom: 36, left: 0, right: 0,
-          borderTop: `1px dashed ${rose(0.15)}`,
-        }} />
+          gap: "0.9rem",
+          background: `linear-gradient(to bottom, rgba(60,20,70,0.15) 0%, transparent 100%)`,
+        }}>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.55, duration: 0.9 }}
+            style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}
+          >
+            <span style={{ color: rose(0.35), fontSize: "0.45rem", lineHeight: 1 }}>✦</span>
+            <span style={{
+              fontFamily: "var(--font-geist-sans)",
+              fontSize: "0.5rem",
+              letterSpacing: "0.5em",
+              textTransform: "uppercase",
+              color: rose(0.85),
+            }}>
+              {t.label}
+            </span>
+            <span style={{ color: rose(0.35), fontSize: "0.45rem", lineHeight: 1 }}>✦</span>
+          </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          style={{
-            fontFamily: "var(--font-geist-sans)",
-            fontSize: "0.55rem",
-            letterSpacing: "0.45em",
-            textTransform: "uppercase",
-            color: rose(0.9),
-          }}
-        >
-          {t.label}
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.75, duration: 1 }}
+            style={{
+              fontFamily: "var(--font-playfair-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(2.2rem, 9vw, 2.8rem)",
+              color: cream(0.97),
+              lineHeight: 1.0,
+              textAlign: "center",
+              marginTop: "0.1rem",
+            }}
+          >
+            {t.title}
+          </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 1 }}
-          style={{
-            fontFamily: "var(--font-playfair-display)",
-            fontStyle: "italic",
-            fontSize: "clamp(2rem, 8vw, 2.6rem)",
-            color: cream(0.95),
-            lineHeight: 1.1,
-            textAlign: "center",
-          }}
-        >
-          {t.title}
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.9 }}
+            style={{
+              fontFamily: "var(--font-playfair-display)",
+              fontStyle: "italic",
+              fontSize: "clamp(1.1rem, 4.5vw, 1.3rem)",
+              color: cream(0.8),
+              letterSpacing: "0.08em",
+            }}
+          >
+            {t.subtitle}
+          </motion.p>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.8 }}
-          style={{
-            fontFamily: "var(--font-playfair-display)",
-            fontStyle: "italic",
-            fontSize: "clamp(1rem, 4vw, 1.2rem)",
-            color: cream(0.95),
-            letterSpacing: "0.05em",
-          }}
-        >
-          {t.subtitle}
-        </motion.p>
+          <motion.div
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1.2, duration: 0.7, type: "spring", stiffness: 180 }}
+            style={{
+              filter: `drop-shadow(0 0 10px ${rose(0.75)})`,
+              marginTop: "0.1rem",
+              marginBottom: "0.1rem",
+            }}
+          >
+            <HeartSvg />
+          </motion.div>
+        </div>
 
+        {/* Perforation tear line with notch circles */}
         <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.2, duration: 0.6, type: "spring", stiffness: 200 }}
-          style={{
-            filter: `drop-shadow(0 0 8px ${rose(0.7)})`,
-            marginTop: "0.25rem",
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.35, duration: 0.6 }}
+          style={{ position: "relative", height: 0, margin: "0 0" }}
         >
-          <HeartSvg />
+          <div style={{
+            position: "absolute", left: -9, top: -9,
+            width: 18, height: 18, borderRadius: "50%",
+            background: pageBg,
+            border: `1px solid ${rose(0.2)}`,
+            zIndex: 2,
+          }} />
+          <div style={{
+            position: "absolute", right: -9, top: -9,
+            width: 18, height: 18, borderRadius: "50%",
+            background: pageBg,
+            border: `1px solid ${rose(0.2)}`,
+            zIndex: 2,
+          }} />
+          <div style={{
+            width: "100%",
+            borderTop: `1px dashed ${rose(0.22)}`,
+          }} />
         </motion.div>
 
-        <motion.p
+        {/* Stub section */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.4, duration: 0.8 }}
+          transition={{ delay: 1.45, duration: 0.8 }}
           style={{
-            fontFamily: "var(--font-geist-sans)",
-            fontSize: "0.7rem",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: cream(0.85),
-            marginTop: "0.25rem",
+            padding: "1.25rem 2.25rem 1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "0.6rem",
           }}
         >
-          {t.detail}
-        </motion.p>
+          <p style={{
+            fontFamily: "var(--font-geist-sans)",
+            fontSize: "0.6rem",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: cream(0.55),
+            textAlign: "center",
+            lineHeight: 1.7,
+          }}>
+            {t.detail}
+          </p>
+          <p style={{
+            fontFamily: "var(--font-geist-sans)",
+            fontSize: "0.45rem",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: rose(0.3),
+            marginTop: "0.1rem",
+          }}>
+            N° 0001 · 2026
+          </p>
+        </motion.div>
       </motion.div>
 
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.8, duration: 0.8 }}
-        style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.75rem", marginTop: "2rem" }}
+        transition={{ delay: 1.9, duration: 0.9 }}
+        style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.8rem", marginTop: "2.25rem" }}
       >
         <button
           onClick={handleAccept}
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(1.5rem, 4vw, 1.2rem)",
+            fontSize: "clamp(1rem, 4vw, 1.15rem)",
             color: rose(1),
-            background: "none",
-            border: `1px solid ${rose(0.3)}`,
+            background: `linear-gradient(135deg, rgba(180,60,100,0.08) 0%, rgba(120,40,80,0.12) 100%)`,
+            border: `1px solid ${rose(0.35)}`,
             borderRadius: 2,
-            padding: "0.75rem 2rem",
+            padding: "0.8rem 2.5rem",
             cursor: "pointer",
-            letterSpacing: "0.05em",
+            letterSpacing: "0.06em",
+            boxShadow: `0 0 20px ${rose(0.08)}`,
           }}
         >
           {t.ctaAccept}
@@ -328,12 +377,12 @@ function TicketScene({ onAccept, onDecline, onBack }: { onAccept: () => void; on
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(0.1rem, 3vw, 0.9rem)",
-            color: cream(0.75),
+            fontSize: "0.85rem",
+            color: cream(0.45),
             background: "none",
             border: "none",
             cursor: "pointer",
-            letterSpacing: "0.05em",
+            letterSpacing: "0.04em",
             padding: "0.25rem 1rem",
           }}
         >
@@ -344,7 +393,7 @@ function TicketScene({ onAccept, onDecline, onBack }: { onAccept: () => void; on
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 0.8 }}
+        transition={{ delay: 2.3, duration: 0.8 }}
         onClick={onBack}
         style={{
           position: "absolute",
