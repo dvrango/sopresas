@@ -24,7 +24,7 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
   const lottieRef = useRef<LottieRefCurrentProps>(null);
 
   useEffect(() => {
-    track("chest_puzzle_entered");
+    track("puzzle_pelicula_abierto");
     const t = setTimeout(() => {
       setShowInput(true);
       setTimeout(() => inputRef.current?.focus(), 400);
@@ -35,13 +35,13 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
   const attempt = useCallback(
     (val: string) => {
       if (isCorrect(val)) {
-        track("chest_puzzle_solved", { answer: val.trim().toLowerCase() });
+        track("puzzle_pelicula_correcta", { respuesta: val.trim().toLowerCase() });
         setOpened(true);
         lottieRef.current?.goToAndPlay(0, true);
         setTimeout(() => setShowSuccess(true), 1200);
         setTimeout(() => onNext(), 4000);
       } else {
-        track("chest_puzzle_wrong", { attempt: val.trim().toLowerCase() });
+        track("puzzle_pelicula_fallida", { intento: val.trim() });
         setShake(true);
         setWrong(true);
         setInput("");

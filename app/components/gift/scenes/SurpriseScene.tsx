@@ -21,7 +21,7 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
   }, []);
 
   const handleStar = (i: number) => {
-    track("constellation_star_clicked", { star: STARS[i].name, index: i, is_special: !!STARS[i].link });
+    track("constelacion_estrella_tocada", { estrella: STARS[i].name, posicion: i, es_especial: !!STARS[i].link });
     if (STARS[i].link && onSpecialStar) {
       onSpecialStar();
       return;

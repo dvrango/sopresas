@@ -155,16 +155,16 @@ function TicketScene({ onAccept, onDecline, onBack }: { onAccept: () => void; on
   const t = CONFIG.script.cita.ticket;
 
   useEffect(() => {
-    track("cita_ticket_viewed");
+    track("cita_ticket_visto");
   }, []);
 
   function handleAccept() {
-    track("cita_accepted");
+    track("cita_aceptada");
     onAccept();
   }
 
   function handleDecline() {
-    track("cita_declined");
+    track("cita_rechazada");
     onDecline();
   }
 
