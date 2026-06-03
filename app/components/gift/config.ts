@@ -15,7 +15,7 @@ export const PHOTOS = [
 ];
 export const INTRO_PHOTO_COUNT = 2;
 
-export const BIRTHDAY_ISO = "2026-06-07";
+export const BIRTHDAY_ISO = "2026-06-03";
 export const hasBirthdayArrived = () => {
   const d = new Date();
   const today = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;

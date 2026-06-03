@@ -39,7 +39,7 @@ export function LetterScene({ onNext }: { onNext: () => void }) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 1 }}
           className="text-xs tracking-[0.45em] uppercase mb-14"
-          style={{ color: rose(0.28) }}
+          style={{ color: rose(0.7) }}
         >
           {CONFIG.date}
         </motion.p>
@@ -77,7 +77,7 @@ export function LetterScene({ onNext }: { onNext: () => void }) {
               <p className="text-base mb-1" style={{ fontStyle: "italic", color: rose(0.8) }}>
                 {CONFIG.signature}
               </p>
-              <p className="text-xs tracking-widest" style={{ color: cream(0.3) }}>
+              <p className="text-xs tracking-widest" style={{ color: cream(0.8) }}>
                 {CONFIG.senderName}
               </p>
             </motion.div>

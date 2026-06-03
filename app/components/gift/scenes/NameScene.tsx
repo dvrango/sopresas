@@ -49,7 +49,7 @@ export function NameScene({ onNext }: { onNext: () => void }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.4 }}
         className="text-xs tracking-[0.55em] uppercase mb-10"
-        style={{ fontFamily: "var(--font-geist-sans)", color: rose(0.38) }}
+        style={{ fontFamily: "var(--font-geist-sans)", color: rose(0.7) }}
       >
         {CONFIG.script.name.label}
       </motion.p>

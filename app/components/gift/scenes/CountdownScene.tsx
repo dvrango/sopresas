@@ -139,7 +139,7 @@ export function CountdownScene() {
           fontFamily: "var(--font-playfair-display)",
           fontStyle: "italic",
           fontSize: "clamp(0.95rem, 3vw, 1.1rem)",
-          color: cream(0.4),
+          color: cream(0.8),
           textAlign: "center",
         }}
       >
