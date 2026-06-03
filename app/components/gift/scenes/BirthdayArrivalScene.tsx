@@ -7,7 +7,7 @@ import { Fireworks } from "../Fireworks";
 
 const LINES = CONFIG.script.birthdayArrivalDialog;
 
-export function BirthdayArrivalScene({ onNext }: { onNext: () => void }) {
+export function BirthdayArrivalScene({ onNext, onStartMusic }: { onNext: () => void; onStartMusic?: () => void }) {
   const [visibleCount, setVisibleCount] = useState(0);
   const [showHint, setShowHint] = useState(false);
 
@@ -30,7 +30,7 @@ export function BirthdayArrivalScene({ onNext }: { onNext: () => void }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.4 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
-      onClick={showHint ? onNext : undefined}
+      onClick={() => { onStartMusic?.(); if (showHint) onNext(); }}
     >
       <Fireworks />
       <div

@@ -63,20 +63,18 @@ export default function GiftExperience() {
     }
   }, []);
 
+  const startMananitas = useCallback(() => {
+    const audio = mananitasRef.current;
+    if (!audio || !audio.paused) return;
+    audio.volume = 0.75;
+    audio.play().catch(() => {});
+  }, []);
+
   useEffect(() => {
     const audio = mananitasRef.current;
     if (!audio) return;
     if (scene === "birthdayArrival") {
-      audio.volume = 0.75;
-      audio.play().catch(() => {
-        const unlock = () => {
-          audio.play().catch(() => {});
-          document.removeEventListener("click", unlock);
-          document.removeEventListener("touchstart", unlock);
-        };
-        document.addEventListener("click", unlock, { once: true });
-        document.addEventListener("touchstart", unlock, { once: true });
-      });
+      startMananitas();
     } else if (scene === "volume") {
       // fadeout over 2s
       const step = () => {
@@ -91,7 +89,7 @@ export default function GiftExperience() {
       };
       step();
     }
-  }, [scene]);
+  }, [scene, startMananitas]);
 
   const handleSongEnded = useCallback(() => {
     if (audio2Ref.current) {
@@ -122,7 +120,7 @@ export default function GiftExperience() {
           <VolumeScene key="volume" onContinue={() => { startMusic(); goTo("intro"); }} />
         )}
         {scene === "birthdayArrival" && (
-          <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("chestIntro")} />
+          <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("chestIntro")} onStartMusic={startMananitas} />
         )}
         {scene === "chestIntro" && (
           <ChestIntroScene key="chestIntro" onNext={() => goTo("chestPuzzle")} />
