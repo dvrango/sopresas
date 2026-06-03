@@ -32,6 +32,8 @@ export function LetterScene({ onNext }: { onNext: () => void }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
       className="fixed inset-0 flex items-center justify-center overflow-y-auto"
+      onClick={showButton ? onNext : undefined}
+      style={{ cursor: showButton ? "pointer" : "default" }}
     >
       <div className="max-w-sm w-full" style={{ paddingLeft: "max(2rem, env(safe-area-inset-left) + 1.5rem)", paddingRight: "max(2rem, env(safe-area-inset-right) + 1.5rem)", paddingTop: "max(2rem, env(safe-area-inset-top) + 1rem)", paddingBottom: "max(2rem, env(safe-area-inset-bottom) + 1rem)" }}>
         <motion.p

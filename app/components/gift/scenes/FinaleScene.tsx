@@ -17,6 +17,12 @@ type Star = {
 
 export function FinaleScene({ onRestart }: { onRestart: () => void }) {
   const [stars, setStars] = useState<Star[]>([]);
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowButton(true), 5200);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("regalo_completed", "1");
@@ -41,6 +47,8 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
       exit={{ opacity: 0 }}
       transition={{ duration: 2 }}
       className="fixed inset-0 flex flex-col items-center justify-center"
+      onClick={showButton ? onRestart : undefined}
+      style={{ cursor: showButton ? "pointer" : "default" }}
     >
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         {stars.map((s) => (

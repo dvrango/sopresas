@@ -2,7 +2,7 @@
 
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { R, rose, lavender, cream, PASSWORD, DISNEY_PIN, CONFIG, hasBirthdayArrived } from "../config";
+import { R, rose, lavender, cream, DISNEY_PIN, CONFIG, hasBirthdayArrived } from "../config";
 import { DialogLines } from "../DialogLines";
 import { track } from "../../../lib/analytics";
 function DialogScreen({ onDone }: { onDone: () => void }) {
@@ -21,70 +21,27 @@ function DialogScreen({ onDone }: { onDone: () => void }) {
 }
 
 function InputScreen({ onUnlock }: { onUnlock: () => void }) {
-  const [dd, setDd] = useState("");
-  const [mm, setMm] = useState("");
-  const [yyyy, setYyyy] = useState("");
+  const [value, setValue] = useState("");
   const [shake, setShake] = useState(false);
   const [wrong, setWrong] = useState(false);
 
-  const refMm = React.useRef<HTMLInputElement>(null);
-  const refYyyy = React.useRef<HTMLInputElement>(null);
-
   const attempt = useCallback(
-    (d: string, m: string, y: string) => {
-      const val = d.padStart(2, "0") + m.padStart(2, "0") + y;
-      if (val === PASSWORD) {
+    (val: string) => {
+      const lower = val.toLowerCase();
+      if (lower.includes("diablo") || lower.includes("moda")) {
         track("gift_unlocked");
         onUnlock();
       } else {
-        track("date_wrong", { tried: `${d.padStart(2,"0")}/${m.padStart(2,"0")}/${y}` });
+        track("date_wrong", { tried: val });
         setShake(true);
         setWrong(true);
-        setDd("");
-        setMm("");
-        setYyyy("");
+        setValue("");
         setTimeout(() => setShake(false), 500);
         setTimeout(() => setWrong(false), 2500);
       }
     },
     [onUnlock]
   );
-
-  const handleDd = (v: string) => {
-    const n = v.replace(/\D/g, "").slice(0, 2);
-    setDd(n);
-    if (n.length === 2) refMm.current?.focus();
-  };
-
-  const handleMm = (v: string) => {
-    const n = v.replace(/\D/g, "").slice(0, 2);
-    setMm(n);
-    if (n.length === 2) refYyyy.current?.focus();
-  };
-
-  const handleYyyy = (v: string) => {
-    const n = v.replace(/\D/g, "").slice(0, 4);
-    setYyyy(n);
-    if (n.length === 4) attempt(dd, mm, n);
-  };
-
-  const fieldStyle = (isWrong: boolean) => ({
-    fontFamily: "var(--font-geist-sans)",
-    color: isWrong ? "#e88096" : cream(0.9),
-    borderColor: isWrong ? "rgba(232,128,150,0.5)" : rose(0.45),
-    caretColor: R,
-    fontSize: "1.4rem",
-    letterSpacing: "0.15em",
-  });
-
-  const labelStyle = {
-    fontFamily: "var(--font-geist-sans)",
-    color: rose(0.65),
-    fontSize: "0.75rem",
-    letterSpacing: "0.3em",
-    textTransform: "uppercase" as const,
-    marginTop: "0.5rem",
-  };
 
   return (
     <motion.div
@@ -144,59 +101,46 @@ function InputScreen({ onUnlock }: { onUnlock: () => void }) {
           <motion.div
             animate={shake ? { x: [-8, 8, -6, 6, -3, 3, 0] } : { x: 0 }}
             transition={{ duration: 0.4 }}
-            className="flex items-end gap-4"
           >
-            <div className="flex flex-col items-center flex-1">
-              <input
-                type="tel"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={2}
-                value={dd}
-                onChange={(e) => handleDd(e.target.value)}
-                placeholder="DD"
-                autoFocus
-                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
-                style={fieldStyle(wrong)}
-              />
-              <span style={labelStyle}>día</span>
-            </div>
-
-            <span style={{ color: rose(0.2), fontSize: "1.2rem", paddingBottom: "1.6rem" }}>/</span>
-
-            <div className="flex flex-col items-center flex-1">
-              <input
-                ref={refMm}
-                type="tel"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={2}
-                value={mm}
-                onChange={(e) => handleMm(e.target.value)}
-                placeholder="MM"
-                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
-                style={fieldStyle(wrong)}
-              />
-              <span style={labelStyle}>mes</span>
-            </div>
-
-            <span style={{ color: rose(0.2), fontSize: "1.2rem", paddingBottom: "1.6rem" }}>/</span>
-
-            <div className="flex flex-col items-center" style={{ flex: 1.8 }}>
-              <input
-                ref={refYyyy}
-                type="tel"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={4}
-                value={yyyy}
-                onChange={(e) => handleYyyy(e.target.value)}
-                placeholder="AAAA"
-                className="w-full text-center bg-transparent border-b outline-none pb-2 placeholder:opacity-40"
-                style={fieldStyle(wrong)}
-              />
-              <span style={labelStyle}>año</span>
-            </div>
+            <input
+              type="text"
+              value={value}
+              onChange={(e) => setValue(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter" && value.trim()) attempt(value.trim()); }}
+              placeholder="escribe tu respuesta…"
+              autoFocus
+              autoComplete="off"
+              autoCorrect="off"
+              spellCheck={false}
+              className="w-full bg-transparent border-b outline-none pb-2 placeholder:opacity-30"
+              style={{
+                fontFamily: "var(--font-geist-sans)",
+                color: wrong ? "#e88096" : cream(0.9),
+                borderColor: wrong ? "rgba(232,128,150,0.5)" : rose(0.45),
+                caretColor: R,
+                fontSize: "1.15rem",
+                letterSpacing: "0.04em",
+              }}
+            />
+            <motion.button
+              onClick={() => { if (value.trim()) attempt(value.trim()); }}
+              whileTap={{ scale: 0.95 }}
+              style={{
+                marginTop: "1.5rem",
+                display: "block",
+                fontFamily: "var(--font-geist-sans)",
+                fontSize: "0.75rem",
+                letterSpacing: "0.3em",
+                textTransform: "uppercase" as const,
+                color: rose(0.7),
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+              }}
+            >
+              confirmar →
+            </motion.button>
           </motion.div>
 
         </motion.div>

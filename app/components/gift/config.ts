@@ -38,8 +38,8 @@ export const CONFIG = {
     },
     {
       roman: "II",
-      title: "Lo que admiro de ti",
-      text: "Eres una persona con muchísima luz y determinación. Sigue siendo tan auténtica.",
+      title: "Nos faltaron fotos",
+      text: "Aqui hubiera puesto mas fotos bonitas pero no me queriass pasaaaarr jaja",
     },
     {
       roman: "III",
@@ -49,16 +49,16 @@ export const CONFIG = {
   ],
   letter: [
     "Quería dejarte este detalle",
-    "para celebrar tu cumpleaños.",
+    "para el dia de tu cumpleaños.",
     "",
-    "Quiero que sepas que fuiste",
+    "Quiero que sepas que sigues siendo",
     "alguien muy especial para mi,",
     "",
     "Eres una gran persona",
     "y mereces que te pasen",
-    "puras cosas increíbles.",
+    "puras cosas bonitas.",
     "",
-    "Siempre estaras en mis recuerdos Cami,",
+    "Hay recuerdos contigo que todavía me hacen sonreir Cami,",
     "te mando un abrazo y un beso",
   ],
 signature: "Con mucho cariño,",
@@ -86,8 +86,8 @@ signature: "Con mucho cariño,",
     ] as DialogLine[],
 
     dateInput: {
-      question: "La pregunta del millon es...",
-      subtitle: "¿que dia nos conocimos?",
+      question: "La pregunta del millón es...",
+      subtitle: "¿cómo se llama la segunda parte de El Diablo Viste a la Moda?",
       wrongAnswer: "¿¿mmm no te acuerdas?? ♡",
     },
 
@@ -114,19 +114,19 @@ signature: "Con mucho cariño,",
     },
 
     surprise: {
-      intro: "cada estrella es algo que descubrí de ti…",
+      intro: "toca una estrella, cada una es algo que descubrí de ti…",
       hint: "",
       stars: [
         { name: "tu risa",         text: "Especialmente con las cosquillas",                x: 22, y: 14 },
         { name: "tu musica",text: "Nunca la entendi jaja pero debo aceptar que algunas canciones si eran buenas",                    x: 62, y: 19 },
-        { name: "trabajadora y responsable",     text: "Levantarte a las 5 am y con 20 alarmas y asi irte a trabajar, decia mucho de ti",      x: 78, y: 36 },
+        { name: "trabajadora y responsable",     text: "Levantarte a las 5 am y con 20 alarmas y asi irte a trabajar, me decia mucho de ti",      x: 78, y: 36 },
         { name: "tu de chiquita",      text: "Querias ser maestra, y tu primer recuerdo es cuando sentias tus manos quemadas",            x: 42, y: 27 },
         { name: "tu autenticidad", text: "Nunca tratas de ser otra persona. Y tu forma de vestir y arreglarte siempre me encanto",       x: 28, y: 46 },
         { name: "lo que no te gusta",    text: "Nopales, menudo, higado, champiñones y que no te muerdaa. Ah y los chiles rellenos definitivamente.",  x: 68, y: 54 },
-        { name: "tu valentía",     text: "Le entras a las cosas difíciles aunque den miedo. Eso no es poca cosa.",   x: 18, y: 66 },
-        { name: "tu corazón",      text: "Eres genuinamente buena persona. Mas cuando se te acerca un perrito de la callee",    x: 52, y: 71 },
+        { name: "tus tatuajes",     text: "Made in heaven mi fav, pero no te hagas ese blackout porfavor",   x: 18, y: 66 },
+        { name: "tu lado cariñoso",      text: "Mas cuando se te acerca un perrito de la callee",    x: 52, y: 71 },
         { name: "lo que inspiras", text: "Conocerte me hizo querer ser mejor. Eso no te lo había dicho.",           x: 78, y: 73 },
-        { name: "tus pasatiempos",          text: "Te gusta escribir, tejer y hacer pasteles, mmm lo de cocinar aun no se si se te da bieen jaja ntc",    x: 36, y: 76 },
+        { name: "tus pasatiempos",          text: "Te gusta escribir, tejer y hacer pasteles. Mmm lo de cocinar aun no se si me lo creo eh jaja ntc",    x: 36, y: 76 },
         { name: "una estrella más",           text: "creo que nuestra historia tiene un capítulo más.", x: 50, y: 48, link: "/cita" },
       ],
       connections: [[0,3],[3,1],[1,2],[0,4],[3,4],[2,5],[4,6],[5,7],[5,8],[7,8],[6,7],[7,9]],
@@ -142,11 +142,11 @@ signature: "Con mucho cariño,",
     cita: {
       dialog: [
         { text: "oye…", delay: 800 },
-        { text: "las buenas historias no siempre terminan en la última página.", delay: 2800 },
-        { text: "a veces hay un capítulo que se quedó sin escribir.", delay: 6200, suspense: true },
-        { text: "y yo creo que el nuestro todavía tiene páginas.", delay: 9800 },
-        { text: "¿te gustaría una más?", delay: 13000, suspense: true },
-        { text: "porque yo sí.", delay: 16200 },
+        { text: "las buenas historias no siempre terminan donde uno cree.", delay: 2800 },
+        { text: "a veces solo hacen una pausa.", delay: 6200, suspense: true },
+        { text: "y honestamente....", delay: 9800 },
+        { text: "creo que la nuestra merece más momentos bonitos", delay: 13000, suspense: true },
+        { text: "que dices?", delay: 16200 },
       ] as DialogLine[],
       ticket: {
         label: "vale por",
@@ -161,6 +161,19 @@ signature: "Con mucho cariño,",
       datePrompt: "tú pones el día y la hora.",
       confirmedMessage: "perfecto. te estaré esperando. ♡",
       declineMessage: "no pasa nada.\nel ticket no vence nunca.\ncuando quieras, aquí está. 🤍",
+    },
+
+    chestIntroDialog: [
+      { text: "¿lista para tu regalo?", delay: 800 },
+      { text: "pero una última prueba primero…", delay: 2800 },
+      { text: "ya ves que aquí nos tomamos la seguridad muy en serio", delay: 5400 },
+      { text: "jaja", delay: 8600 },
+    ] as DialogLine[],
+
+    chestPuzzle: {
+      question: "¿recuerdas la última película que vimos juntos en el cine?",
+      wrongAnswer: "como q no te acuerdass?? 😠",
+      successText: "¡exacto! sabía que te acordabas.",
     },
 
     birthdayArrivalDialog: [
@@ -182,6 +195,7 @@ export const cream = (a: number) => `rgba(248,236,242,${a})`;
 
 export const PASSWORD = "17032026";
 export const DISNEY_PIN = "0000";
+export const MOVIE_ANSWER = "el diablo viste a la moda 2"; // cambia esto a la película correcta
 
 export type Scene =
   | "volume"
@@ -189,6 +203,8 @@ export type Scene =
   | "dateSuccess"
   | "countdown"
   | "birthdayArrival"
+  | "chestIntro"
+  | "chestPuzzle"
   | "intro"
   | "name"
   | "birthday"

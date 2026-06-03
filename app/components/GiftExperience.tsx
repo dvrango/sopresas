@@ -20,6 +20,8 @@ import { VolumeScene } from "./gift/scenes/VolumeScene";
 import { CountdownScene } from "./gift/scenes/CountdownScene";
 import { CitaScene } from "./gift/scenes/CitaScene";
 import { BirthdayArrivalScene } from "./gift/scenes/BirthdayArrivalScene";
+import { ChestIntroScene } from "./gift/scenes/ChestIntroScene";
+import { ChestPuzzleScene } from "./gift/scenes/ChestPuzzleScene";
 
 export default function GiftExperience() {
   const [scene, setScene] = useState<Scene>(() => {
@@ -88,7 +90,13 @@ export default function GiftExperience() {
           <VolumeScene key="volume" onContinue={() => goTo("intro")} />
         )}
         {scene === "birthdayArrival" && (
-          <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("volume")} />
+          <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("chestIntro")} />
+        )}
+        {scene === "chestIntro" && (
+          <ChestIntroScene key="chestIntro" onNext={() => goTo("chestPuzzle")} />
+        )}
+        {scene === "chestPuzzle" && (
+          <ChestPuzzleScene key="chestPuzzle" onNext={() => goTo("volume")} />
         )}
         {scene === "intro" && (
           <IntroScene key="intro" onNext={() => goTo("name")} />
