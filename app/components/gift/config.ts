@@ -147,7 +147,7 @@ signature: "Con mucho cariño,",
         { text: "a veces solo hacen una pausa.", delay: 6200, suspense: true },
         { text: "y honestamente....", delay: 9800 },
         { text: "creo que la nuestra merece más momentos bonitos", delay: 13000, suspense: true },
-        { text: "que dices?", delay: 16200 },
+        { text: "no lo crees?", delay: 16200 },
       ] as DialogLine[],
       ticket: {
         label: "vale por",
@@ -203,6 +203,7 @@ export type Scene =
   | "password"
   | "dateSuccess"
   | "countdown"
+  | "birthdayTap"
   | "birthdayArrival"
   | "chestIntro"
   | "chestPuzzle"

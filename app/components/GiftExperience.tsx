@@ -20,6 +20,7 @@ import { VolumeScene } from "./gift/scenes/VolumeScene";
 import { CountdownScene } from "./gift/scenes/CountdownScene";
 import { CitaScene } from "./gift/scenes/CitaScene";
 import { BirthdayArrivalScene } from "./gift/scenes/BirthdayArrivalScene";
+import { BirthdayTapScene } from "./gift/scenes/BirthdayTapScene";
 import { ChestIntroScene } from "./gift/scenes/ChestIntroScene";
 import { ChestPuzzleScene } from "./gift/scenes/ChestPuzzleScene";
 
@@ -27,7 +28,7 @@ export default function GiftExperience() {
   const [scene, setScene] = useState<Scene>(() => {
     if (typeof window !== "undefined") {
       if (localStorage.getItem("regalo_completed")) return "return";
-      if (localStorage.getItem("regalo_unlocked")) return hasBirthdayArrived() ? "birthdayArrival" : "countdown";
+      if (localStorage.getItem("regalo_unlocked")) return hasBirthdayArrived() ? "birthdayTap" : "countdown";
     }
     return "password";
   });
@@ -56,6 +57,12 @@ export default function GiftExperience() {
   }, []);
 
   const startMusic = useCallback(() => {
+    const mananitas = mananitasRef.current;
+    if (mananitas && !mananitas.paused) {
+      mananitas.pause();
+      mananitas.currentTime = 0;
+      mananitas.volume = 0.75;
+    }
     if (audioRef.current) {
       audioRef.current.volume = 0.55;
       audioRef.current.play().catch(() => {});
@@ -73,9 +80,7 @@ export default function GiftExperience() {
   useEffect(() => {
     const audio = mananitasRef.current;
     if (!audio) return;
-    if (scene === "birthdayArrival") {
-      startMananitas();
-    } else if (scene === "volume") {
+    if (scene === "volume") {
       // fadeout over 2s
       const step = () => {
         if (!audio.paused && audio.volume > 0.04) {
@@ -114,10 +119,13 @@ export default function GiftExperience() {
           <PasswordScene key="password" onUnlock={() => goTo("dateSuccess")} />
         )}
         {scene === "dateSuccess" && (
-          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo(hasBirthdayArrived() ? "birthdayArrival" : "countdown"); }} />
+          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo(hasBirthdayArrived() ? "birthdayTap" : "countdown"); }} />
         )}
         {scene === "volume" && (
           <VolumeScene key="volume" onContinue={() => { startMusic(); goTo("intro"); }} />
+        )}
+        {scene === "birthdayTap" && (
+          <BirthdayTapScene key="birthdayTap" onTap={() => { startMananitas(); goTo("birthdayArrival"); }} />
         )}
         {scene === "birthdayArrival" && (
           <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("chestIntro")} onStartMusic={startMananitas} />

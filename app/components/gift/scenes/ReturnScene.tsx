@@ -97,7 +97,7 @@ export function ReturnScene({
               transition: "border-color 0.3s",
             }}
           >
-            sí, quiero volverlo a ver
+            sí, otra vez
           </button>
 
           <button

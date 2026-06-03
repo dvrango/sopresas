@@ -131,7 +131,7 @@ export function FinaleScene({ onRestart }: { onRestart: () => void }) {
           className="text-xs tracking-[0.45em] uppercase transition-all duration-700 hover:tracking-[0.6em]"
           style={{ color: rose(0.9) }}
         >
-          lo quieres ver de nuevo?
+          toca para continuar
         </motion.button>
       </div>
     </motion.div>
