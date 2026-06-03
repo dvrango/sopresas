@@ -4,14 +4,13 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Lottie, { type LottieRefCurrentProps } from "lottie-react";
 import chestData from "../../../../public/chest.json";
-import { rose, cream, CONFIG, MOVIE_ANSWER } from "../config";
+import { rose, cream, CONFIG } from "../config";
+import { Fireworks } from "../Fireworks";
 
-const normalize = (s: string) =>
-  s
-    .toLowerCase()
-    .trim()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
+const isCorrect = (s: string) => {
+  const lower = s.toLowerCase();
+  return lower.includes("diablo") || lower.includes("moda");
+};
 
 export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
   const [showInput, setShowInput] = useState(false);
@@ -33,7 +32,7 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
 
   const attempt = useCallback(
     (val: string) => {
-      if (normalize(val) === normalize(MOVIE_ANSWER)) {
+      if (isCorrect(val)) {
         setOpened(true);
         lottieRef.current?.goToAndPlay(0, true);
         setTimeout(() => setShowSuccess(true), 1200);
@@ -59,6 +58,7 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
       transition={{ duration: 0.8 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
     >
+      {!opened && <Fireworks />}
       {/* ambient halo */}
       <motion.div
         className="absolute rounded-full pointer-events-none"

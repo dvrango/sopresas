@@ -33,6 +33,7 @@ export default function GiftExperience() {
   });
   const audioRef = useRef<HTMLAudioElement>(null);
   const audio2Ref = useRef<HTMLAudioElement>(null);
+  const mananitasRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const isReturn = !!localStorage.getItem("regalo_completed");
@@ -62,6 +63,36 @@ export default function GiftExperience() {
     }
   }, []);
 
+  useEffect(() => {
+    const audio = mananitasRef.current;
+    if (!audio) return;
+    if (scene === "birthdayArrival") {
+      audio.volume = 0.75;
+      audio.play().catch(() => {
+        const unlock = () => {
+          audio.play().catch(() => {});
+          document.removeEventListener("click", unlock);
+          document.removeEventListener("touchstart", unlock);
+        };
+        document.addEventListener("click", unlock, { once: true });
+        document.addEventListener("touchstart", unlock, { once: true });
+      });
+    } else if (scene === "volume") {
+      // fadeout over 2s
+      const step = () => {
+        if (!audio.paused && audio.volume > 0.04) {
+          audio.volume = Math.max(0, audio.volume - 0.04);
+          setTimeout(step, 100);
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+          audio.volume = 0.75;
+        }
+      };
+      step();
+    }
+  }, [scene]);
+
   const handleSongEnded = useCallback(() => {
     if (audio2Ref.current) {
       audio2Ref.current.volume = audioRef.current?.volume ?? 0.55;
@@ -74,6 +105,7 @@ export default function GiftExperience() {
     <div className="fixed inset-0 select-none" style={{ background: "#0a0608" }}>
       <audio ref={audioRef} src="/audio/song.mp3" preload="auto" onEnded={handleSongEnded} />
       <audio ref={audio2Ref} src="/audio/song2.mp3" preload="auto" style={{ display: "none" }} />
+      <audio ref={mananitasRef} src="/audio/mananitas.mp3" preload="auto" style={{ display: "none" }} />
       <AmbientParticles />
 
       <AnimatePresence mode="wait">
@@ -84,10 +116,10 @@ export default function GiftExperience() {
           <PasswordScene key="password" onUnlock={() => goTo("dateSuccess")} />
         )}
         {scene === "dateSuccess" && (
-          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo(hasBirthdayArrived() ? "birthdayArrival" : "countdown"); }} onStart={hasBirthdayArrived() ? startMusic : undefined} />
+          <DateSuccessScene key="dateSuccess" onNext={() => { localStorage.setItem("regalo_unlocked", "1"); goTo(hasBirthdayArrived() ? "birthdayArrival" : "countdown"); }} />
         )}
         {scene === "volume" && (
-          <VolumeScene key="volume" onContinue={() => goTo("intro")} />
+          <VolumeScene key="volume" onContinue={() => { startMusic(); goTo("intro"); }} />
         )}
         {scene === "birthdayArrival" && (
           <BirthdayArrivalScene key="birthdayArrival" onNext={() => goTo("chestIntro")} />

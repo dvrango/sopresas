@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { rose, lavender, cream, CONFIG } from "../config";
+import { Fireworks } from "../Fireworks";
 
 const LINES = CONFIG.script.chestIntroDialog;
 
@@ -29,6 +30,7 @@ export function ChestIntroScene({ onNext }: { onNext: () => void }) {
       transition={{ duration: 1.2 }}
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
     >
+      <Fireworks />
       <div
         className="absolute rounded-full pointer-events-none"
         style={{

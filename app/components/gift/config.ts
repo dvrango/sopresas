@@ -86,8 +86,8 @@ signature: "Con mucho cariño,",
     ] as DialogLine[],
 
     dateInput: {
-      question: "La pregunta del millón es...",
-      subtitle: "¿cómo se llama la segunda parte de El Diablo Viste a la Moda?",
+      question: "La pregunta del millon es...",
+      subtitle: "¿que dia nos conocimos?",
       wrongAnswer: "¿¿mmm no te acuerdas?? ♡",
     },
 
@@ -164,10 +164,10 @@ signature: "Con mucho cariño,",
     },
 
     chestIntroDialog: [
-      { text: "¿lista para tu regalo?", delay: 800 },
+      { text: "¿lista para abrir tu regalo?", delay: 800 },
       { text: "pero una última prueba primero…", delay: 2800 },
-      { text: "ya ves que aquí nos tomamos la seguridad muy en serio", delay: 5400 },
-      { text: "jaja", delay: 8600 },
+      { text: "ya ves que aquí si nos tomamos la seguridad muy en serio", delay: 5400 },
+      { text: "jajajaj", delay: 8600 },
     ] as DialogLine[],
 
     chestPuzzle: {

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { rose, lavender, cream, CONFIG } from "../config";
+import { Fireworks } from "../Fireworks";
 
 const LINES = CONFIG.script.birthdayArrivalDialog;
 
@@ -31,6 +32,7 @@ export function BirthdayArrivalScene({ onNext }: { onNext: () => void }) {
       className="fixed inset-0 flex flex-col items-center justify-center px-10"
       onClick={showHint ? onNext : undefined}
     >
+      <Fireworks />
       <div
         className="absolute rounded-full pointer-events-none"
         style={{
