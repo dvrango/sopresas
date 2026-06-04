@@ -140,7 +140,7 @@ export const CONFIG = {
     },
 
     chestIntroDialog: [
-      { text: "¿lista para ver su regalo?", delay: 800 },
+      { text: "¿lista para ver tu regalo?", delay: 800 },
       { text: "pero una última prueba primero…", delay: 2800 },
       { text: "ya ves que aquí si nos tomamos la seguridad muy en serio", delay: 5400 },
       { text: "jajajaj", delay: 8600 },
