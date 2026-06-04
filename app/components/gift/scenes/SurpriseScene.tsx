@@ -21,8 +21,9 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
   }, []);
 
   const handleStar = (i: number) => {
-    track("constelacion_estrella_tocada", { estrella: STARS[i].name, posicion: i, es_especial: !!STARS[i].link });
-    if (STARS[i].link && onSpecialStar) {
+    const isLast = i === STARS.length - 1;
+    track("constelacion_estrella_tocada", { estrella: STARS[i].name, posicion: i, es_especial: isLast });
+    if (isLast && onSpecialStar) {
       onSpecialStar();
       return;
     }
@@ -277,28 +278,6 @@ export function SurpriseScene({ onBack, onSpecialStar }: { onBack: () => void; o
             }}>
               {STARS[selected].text}
             </p>
-            {STARS[selected].link && (
-              <motion.a
-                href={STARS[selected].link}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.8 }}
-                style={{
-                  display: "inline-block",
-                  marginTop: "0.75rem",
-                  fontFamily: "var(--font-geist-sans)",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.4em",
-                  textTransform: "uppercase",
-                  color: lavender(0.9),
-                  textDecoration: "none",
-                  borderBottom: `1px solid ${lavender(0.3)}`,
-                  paddingBottom: "2px",
-                }}
-              >
-                seguir leyendo →
-              </motion.a>
-            )}
           </motion.div>
           </>
         )}

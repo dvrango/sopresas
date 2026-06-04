@@ -130,7 +130,7 @@ export const CONFIG = {
         { name: "tu lado cariñoso", text: "Mas cuando se te acerca un perrito de la callee", x: 52, y: 71 },
         { name: "lo que inspiras", text: "Conocerte me hizo querer ser mejor. Eso no te lo había dicho.", x: 78, y: 73 },
         { name: "tus pasatiempos", text: "Te gusta escribir, tejer y hacer pasteles. Mmm lo de cocinar aun no se si me lo creo eh jaja ntc", x: 36, y: 76 },
-        { name: "una estrella más", text: "creo que nuestra historia tiene un capítulo más.", x: 50, y: 48, link: "/cita" },
+        { name: "una última cosa", text: "Espero que sonrías cuando recuerdes esto.", x: 50, y: 48 },
       ],
       connections: [[0, 3], [3, 1], [1, 2], [0, 4], [3, 4], [2, 5], [4, 6], [5, 7], [5, 8], [7, 8], [6, 7], [7, 9]],
     },
@@ -140,30 +140,6 @@ export const CONFIG = {
       subtitle: "aún no es tu cumpleaños 🙈",
       hint: "ya falta poco",
       tease: "la paciencia es una virtud, ¿recuerdas? :)",
-    },
-
-    cita: {
-      dialog: [
-        { text: "oye…", delay: 800 },
-        { text: "las buenas historias no siempre terminan donde uno cree.", delay: 2800 },
-        { text: "a veces solo hacen una pausa.", delay: 6200, suspense: true },
-        { text: "y honestamente....", delay: 9800 },
-        { text: "creo que la nuestra merece más momentos bonitos", delay: 13000, suspense: true },
-        { text: "no lo crees?", delay: 16200 },
-      ] as DialogLine[],
-      ticket: {
-        label: "vale por",
-        title: "una cita",
-        subtitle: "contigo",
-        detail: "si sonries, no se aceptan devoluciones. ♡",
-        ctaAccept: "acepto ♡",
-        ctaDecline: "quizás otro día…",
-      },
-      place: "nos vemos en el cafe donde nos conocimos?",
-      placeIntro: "que te parece sii",
-      datePrompt: "tú pones el día y la hora.",
-      confirmedMessage: "perfecto. te estaré esperando. ♡",
-      declineMessage: "no pasa nada.\nel ticket no vence nunca.\ncuando quieras, aquí está. 🤍",
     },
 
     chestIntroDialog: [
@@ -218,4 +194,4 @@ export type Scene =
   | "finale"
   | "return"
   | "surprise"
-  | "cita";
+  | "sonrisa";

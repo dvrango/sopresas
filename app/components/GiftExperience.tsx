@@ -16,9 +16,9 @@ import { FinaleScene } from "./gift/scenes/FinaleScene";
 import { DateSuccessScene } from "./gift/scenes/DateSuccessScene";
 import { ReturnScene } from "./gift/scenes/ReturnScene";
 import { SurpriseScene } from "./gift/scenes/SurpriseScene";
+import { SonrisaScene } from "./gift/scenes/SonrisaScene";
 import { VolumeScene } from "./gift/scenes/VolumeScene";
 import { CountdownScene } from "./gift/scenes/CountdownScene";
-import { CitaScene } from "./gift/scenes/CitaScene";
 import { BirthdayArrivalScene } from "./gift/scenes/BirthdayArrivalScene";
 import { BirthdayTapScene } from "./gift/scenes/BirthdayTapScene";
 import { ChestIntroScene } from "./gift/scenes/ChestIntroScene";
@@ -47,8 +47,6 @@ export default function GiftExperience() {
       img.src = src;
     });
   }, []);
-
-  const [citaDirectEdit, setCitaDirectEdit] = useState(false);
 
   const goTo = useCallback((next: Scene) => {
     if (next === "finale") track("gift_completed");
@@ -159,13 +157,13 @@ export default function GiftExperience() {
           <FinaleScene key="finale" onRestart={() => goTo("return")} />
         )}
         {scene === "return" && (
-          <ReturnScene key="return" onReplay={() => { startMusic(); goTo("intro"); }} onSurprise={() => goTo("surprise")} onCita={() => { setCitaDirectEdit(true); goTo("cita"); }} />
+          <ReturnScene key="return" onReplay={() => { startMusic(); goTo("intro"); }} onSurprise={() => goTo("surprise")} />
         )}
         {scene === "surprise" && (
-          <SurpriseScene key="surprise" onBack={() => goTo("return")} onSpecialStar={() => { setCitaDirectEdit(false); goTo("cita"); }} />
+          <SurpriseScene key="surprise" onBack={() => goTo("return")} onSpecialStar={() => goTo("sonrisa")} />
         )}
-        {scene === "cita" && (
-          <CitaScene key="cita" onBack={() => goTo("surprise")} directEdit={citaDirectEdit} />
+        {scene === "sonrisa" && (
+          <SonrisaScene key="sonrisa" onBack={() => goTo("surprise")} />
         )}
       </AnimatePresence>
     </div>

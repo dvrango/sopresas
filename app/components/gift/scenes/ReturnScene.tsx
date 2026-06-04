@@ -1,23 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { R, rose, lavender, cream } from "../config";
 
 export function ReturnScene({
   onReplay,
   onSurprise,
-  onCita,
 }: {
   onReplay: () => void;
   onSurprise: () => void;
-  onCita: () => void;
 }) {
-  const [hasCita, setHasCita] = useState(false);
-
-  useEffect(() => {
-    setHasCita(!!localStorage.getItem("cita_confirmed"));
-  }, []);
 
   return (
     <motion.div
@@ -120,29 +112,6 @@ export function ReturnScene({
             aquí hay otra sorpresa más
           </button>
 
-          {hasCita && (
-            <motion.button
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.8, duration: 0.8 }}
-              onClick={onCita}
-              style={{
-                background: "none",
-                border: `1px solid ${rose(0.25)}`,
-                borderRadius: "999px",
-                padding: "0.85rem 2.4rem",
-                fontFamily: "var(--font-playfair-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(0.85rem, 3vw, 1rem)",
-                color: rose(0.8),
-                cursor: "pointer",
-                width: "100%",
-                transition: "border-color 0.3s",
-              }}
-            >
-              nuestra cita ♡
-            </motion.button>
-          )}
         </motion.div>
       </div>
     </motion.div>
