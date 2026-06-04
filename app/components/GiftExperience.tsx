@@ -72,29 +72,30 @@ export default function GiftExperience() {
 
   const startMananitas = useCallback(() => {
     const audio = mananitasRef.current;
+    console.log("[mananitas] startMananitas — audio:", audio, "paused:", audio?.paused);
     if (!audio || !audio.paused) return;
+    audio.loop = true;
     audio.volume = 0.75;
-    audio.play().catch(() => {});
+    audio.play().then(() => console.log("[mananitas] play OK")).catch((e) => console.error("[mananitas] play FAIL", e));
   }, []);
 
-  useEffect(() => {
+  const fadeMananitas = useCallback(() => {
     const audio = mananitasRef.current;
+    console.log("[mananitas] fadeMananitas called — audio:", audio, "paused:", audio?.paused, "volume:", audio?.volume);
     if (!audio) return;
-    if (scene === "volume") {
-      // fadeout over 2s
-      const step = () => {
-        if (!audio.paused && audio.volume > 0.04) {
-          audio.volume = Math.max(0, audio.volume - 0.04);
-          setTimeout(step, 100);
-        } else {
-          audio.pause();
-          audio.currentTime = 0;
-          audio.volume = 0.75;
-        }
-      };
-      step();
-    }
-  }, [scene, startMananitas]);
+    const step = () => {
+      if (!audio.paused && audio.volume > 0.04) {
+        audio.volume = Math.max(0, audio.volume - 0.04);
+        setTimeout(step, 100);
+      } else {
+        console.log("[mananitas] fade done, pausing");
+        audio.pause();
+        audio.currentTime = 0;
+        audio.volume = 0.75;
+      }
+    };
+    step();
+  }, []);
 
   const handleSongEnded = useCallback(() => {
     if (audio2Ref.current) {
@@ -134,7 +135,7 @@ export default function GiftExperience() {
           <ChestIntroScene key="chestIntro" onNext={() => goTo("chestPuzzle")} />
         )}
         {scene === "chestPuzzle" && (
-          <ChestPuzzleScene key="chestPuzzle" onNext={() => goTo("volume")} />
+          <ChestPuzzleScene key="chestPuzzle" onNext={() => goTo("volume")} onSuccess={fadeMananitas} />
         )}
         {scene === "intro" && (
           <IntroScene key="intro" onNext={() => goTo("name")} />

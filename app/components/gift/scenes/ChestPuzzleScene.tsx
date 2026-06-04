@@ -13,7 +13,7 @@ const isCorrect = (s: string) => {
   return lower.includes("diablo") || lower.includes("moda");
 };
 
-export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
+export function ChestPuzzleScene({ onNext, onSuccess }: { onNext: () => void; onSuccess?: () => void }) {
   const [showInput, setShowInput] = useState(false);
   const [input, setInput] = useState("");
   const [shake, setShake] = useState(false);
@@ -38,6 +38,7 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
         track("puzzle_pelicula_correcta", { respuesta: val.trim().toLowerCase() });
         setOpened(true);
         lottieRef.current?.goToAndPlay(0, true);
+        onSuccess?.();
         setTimeout(() => setShowSuccess(true), 1200);
         setTimeout(() => onNext(), 4000);
       } else {
@@ -49,7 +50,7 @@ export function ChestPuzzleScene({ onNext }: { onNext: () => void }) {
         setTimeout(() => setWrong(false), 2500);
       }
     },
-    [onNext]
+    [onNext, onSuccess]
   );
 
   const cfg = CONFIG.script.chestPuzzle;
