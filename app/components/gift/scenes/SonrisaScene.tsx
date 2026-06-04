@@ -28,15 +28,33 @@ export function SonrisaScene({ onBack }: { onBack: () => void }) {
         }}
       />
 
-      <div className="relative z-10 text-center max-w-sm">
+      <div className="relative z-10 text-center w-full max-w-xs flex flex-col items-center gap-8">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 1.6, ease: "easeOut" }}
+          style={{
+            fontFamily: "var(--font-geist-sans)",
+            fontSize: "0.65rem",
+            letterSpacing: "0.3em",
+            textTransform: "uppercase",
+            color: rose(0.55),
+            lineHeight: 1.9,
+          }}
+        >
+          ya tienes algo bonito
+          <br />
+          para escribir en tu diario
+        </motion.p>
+
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 2, ease: "easeOut" }}
+          transition={{ delay: 1.4, duration: 2, ease: "easeOut" }}
           style={{
             fontFamily: "var(--font-playfair-display)",
             fontStyle: "italic",
-            fontSize: "clamp(1.5rem, 7vw, 2.4rem)",
+            fontSize: "clamp(1.4rem, 6.5vw, 2.2rem)",
             color: cream(0.88),
             lineHeight: 1.55,
           }}
@@ -49,8 +67,7 @@ export function SonrisaScene({ onBack }: { onBack: () => void }) {
         <motion.div
           initial={{ opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 2.4, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-          className="flex justify-center mt-12"
+          transition={{ delay: 3.0, duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
           style={{
             filter: `drop-shadow(0 0 8px ${rose(0.7)}) drop-shadow(0 0 24px ${rose(0.3)})`,
             animation: "breathe 3s ease-in-out infinite",
@@ -68,7 +85,7 @@ export function SonrisaScene({ onBack }: { onBack: () => void }) {
       <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 4, duration: 1.2 }}
+        transition={{ delay: 4.4, duration: 1.2 }}
         onClick={onBack}
         style={{
           position: "absolute",
@@ -80,7 +97,7 @@ export function SonrisaScene({ onBack }: { onBack: () => void }) {
           fontSize: "0.68rem",
           letterSpacing: "0.4em",
           textTransform: "uppercase",
-          color: rose(0.5),
+          color: rose(0.45),
           background: "none",
           border: "none",
           cursor: "pointer",
