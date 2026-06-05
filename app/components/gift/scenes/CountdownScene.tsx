@@ -27,13 +27,19 @@ function Pad({ n }: { n: number }) {
   return <>{String(n).padStart(2, "0")}</>;
 }
 
-export function CountdownScene() {
+export function CountdownScene({ onBirthdayArrived }: { onBirthdayArrived?: () => void }) {
   const [time, setTime] = useState(getTimeLeft);
 
   useEffect(() => {
-    const id = setInterval(() => setTime(getTimeLeft()), 1000);
+    const id = setInterval(() => {
+      const t = getTimeLeft();
+      setTime(t);
+      if (t.days === 0 && t.hours === 0 && t.minutes === 0 && t.seconds === 0) {
+        onBirthdayArrived?.();
+      }
+    }, 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [onBirthdayArrived]);
 
   const unitStyle = {
     fontFamily: "var(--font-geist-sans)",

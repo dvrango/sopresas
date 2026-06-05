@@ -111,7 +111,7 @@ export default function GiftExperience() {
 
       <AnimatePresence mode="wait">
         {scene === "countdown" && (
-          <CountdownScene key="countdown" />
+          <CountdownScene key="countdown" onBirthdayArrived={() => goTo("birthdayTap")} />
         )}
         {scene === "password" && (
           <PasswordScene key="password" onUnlock={() => goTo("dateSuccess")} />
