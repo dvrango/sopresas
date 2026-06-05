@@ -72,7 +72,6 @@ export default function GiftExperience() {
     const audio = mananitasRef.current;
     console.log("[mananitas] startMananitas — audio:", audio, "paused:", audio?.paused);
     if (!audio || !audio.paused) return;
-    audio.loop = true;
     audio.volume = 0.75;
     audio.play().then(() => console.log("[mananitas] play OK")).catch((e) => console.error("[mananitas] play FAIL", e));
   }, []);

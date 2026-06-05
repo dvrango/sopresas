@@ -8,6 +8,17 @@ const getSessionId = (): string => {
   return id;
 };
 
+const getDevice = (): string => {
+  if (typeof window === "undefined") return "server";
+  const ua = navigator.userAgent;
+  if (/iPhone/.test(ua)) return "iPhone";
+  if (/iPad/.test(ua)) return "iPad";
+  if (/Android/.test(ua)) return "Android";
+  if (/Mac/.test(ua)) return "Mac";
+  if (/Windows/.test(ua)) return "Windows";
+  return "Desktop";
+};
+
 export const track = (event: string, data?: Record<string, unknown>): void => {
   fetch("/api/log", {
     method: "POST",
@@ -15,6 +26,7 @@ export const track = (event: string, data?: Record<string, unknown>): void => {
     body: JSON.stringify({
       event,
       ...data,
+      device: getDevice(),
       sid: getSessionId(),
       ts: new Date().toISOString(),
     }),

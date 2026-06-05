@@ -42,7 +42,7 @@ export function SonrisaScene({ onBack }: { onBack: () => void }) {
             lineHeight: 1.9,
           }}
         >
-          ya tienes algo bonito
+          Ojala que sea algo bonito
           <br />
           para escribir en tu diario
         </motion.p>

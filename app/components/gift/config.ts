@@ -149,13 +149,13 @@ export const CONFIG = {
     chestPuzzle: {
       question: "¿recuerdas la última película que vimos juntos en el cine?",
       wrongAnswer: "como q no te acuerdass?? 😠",
-      successText: "¡exacto! sabía que te acordabas.",
+      successText: "jajaja mira si te acordaste.",
     },
 
     birthdayArrivalDialog: [
       { text: "oye…", delay: 600 },
       { text: "¡por fin llegó!", delay: 2000 },
-      { text: "sabía que esperabas este día con muchísimas ganas.", delay: 4000, suspense: true },
+      { text: "sabía que esperabas este día con muchas ganas.", delay: 4000, suspense: true },
       { text: "hoy cumples 21.", delay: 7000 },
       { text: "este día es tuyo, Cami.", delay: 9200, suspense: true },
       { text: "deseo que lo disfrutes muchísimo", delay: 12000 },

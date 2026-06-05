@@ -4,9 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 const MESSAGES: Record<string, (data: Record<string, unknown>) => string> = {
   gift_opened: (d) => {
     const n = d.visit_number as number;
-    if (n === 1) return "🎁 Cami abrió el regalo por primera vez!";
-    if (n === 2) return "💌 Cami volvió a abrirlo (2da vez)";
-    return `💌 Cami abrió el regalo de nuevo (vez #${n})`;
+    const dev = d.device ? ` [${d.device}]` : "";
+    if (n === 1) return `🎁 Cami abrió el regalo por primera vez!${dev}`;
+    if (n === 2) return `💌 Cami volvió a abrirlo (2da vez)${dev}`;
+    return `💌 Cami abrió el regalo de nuevo (vez #${n})${dev}`;
   },
   pin_wrong: (d) => `🔒 PIN incorrecto — puso: ${d.tried}`,
   pin_correct: () => "✅ Adivinó el PIN de Disney+",
