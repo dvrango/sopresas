@@ -39,7 +39,7 @@ export const CONFIG = {
     {
       roman: "II",
       title: "Nos faltaron fotos",
-      text: "Aqui hubiera puesto mas fotos bonitas pero no me queriass pasaaaarr jaja",
+      text: "Nunca logre convecerte jaja. Pero tengo muchos recuerdos guardados de nosotros, y espero que tú también. ",
     },
     {
       roman: "III",
